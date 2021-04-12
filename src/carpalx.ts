@@ -35,10 +35,10 @@ interface Triads {
   [triad: string]: number;
 }
 
-const triads: Triads = {
-  ครั: 1,
-  รับ: 2,
-};
+// const triads: Triads = {
+//   ครั: 1,
+//   รับ: 2,
+// };
 
 // 𝐸=1𝑁∑𝑖𝑛𝑖𝑒𝑖
 // E : typingEffort
@@ -106,10 +106,10 @@ const w0 = 0,
   wr = 1.3088,
   wf = 2.5948;
 
-function Pf(i) {
+function Pf(i: number) {
   return [1, 0.5, 0, 0, 0, 0, 0, 0, 0.5, 1, 1][i];
 }
-function Pr(i) {
+function Pr(i: number) {
   // return [1.5, 0.5, 0, 1][i]; // With number row
   return [0.5, 0, 1][i]; // Without number row
 }
