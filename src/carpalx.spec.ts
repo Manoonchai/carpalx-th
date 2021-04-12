@@ -1,4 +1,10 @@
-import { baseEffortKey } from "./carpalx";
+import {
+  baseEffortKey,
+  penaltyEffortKey,
+  penaltyFinger,
+  penaltyHand,
+  penaltyRow,
+} from "./carpalx";
 
 describe("baseEffortKey", () => {
   describe("pattachote", () => {
@@ -37,6 +43,43 @@ describe("baseEffortKey", () => {
 
     it("raises error if char is longer than 1", () => {
       expect(() => baseEffortKey("อะ")).toThrow();
+    });
+  });
+});
+
+describe("penaltyEffortKey", () => {
+  describe("pattachote", () => {
+    it("returns [1, 0.5, 0, 0, 0, 0, 0.5, 1] * wf for at home row", () => {
+      expect(penaltyFinger("้")).toEqual(1);
+      expect(penaltyFinger("ท")).toEqual(0.5);
+      expect(penaltyFinger("ง")).toEqual(0);
+      expect(penaltyFinger("ก")).toEqual(0);
+      expect(penaltyFinger("ั")).toEqual(0);
+      expect(penaltyFinger("ี")).toEqual(0);
+      expect(penaltyFinger("า")).toEqual(0);
+      expect(penaltyFinger("น")).toEqual(0);
+      expect(penaltyFinger("เ")).toEqual(0.5);
+      expect(penaltyFinger("ไ")).toEqual(1);
+      expect(penaltyFinger("ข")).toEqual(1);
+    });
+
+    it("returns with row penalty of [0.5, 0, 1]", () => {
+      expect(penaltyRow("ก")).toEqual(0);
+      expect(penaltyRow("ห")).toEqual(1);
+    });
+
+    it("returns with hand penalty of [0.2,0]", () => {
+      expect(penaltyHand("ก")).toEqual(0.2);
+      expect(penaltyHand("า")).toEqual(0);
+    });
+
+    it("returns full weighted value correctly", () => {
+      const wf = 2.5948;
+      const wr = 1.3088;
+      const wh = 1;
+
+      expect(penaltyEffortKey("บ")).toEqual(wf * 1 + wr * 1 + wh * 0.2);
+      expect(penaltyEffortKey("ว")).toEqual(wf * 0.5 + wr * 0.5 + wh * 0);
     });
   });
 });

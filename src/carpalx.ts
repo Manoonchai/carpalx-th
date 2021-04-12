@@ -101,8 +101,87 @@ export function baseEffortKey(char: string) {
   return effort;
 }
 
+const w0 = 0,
+  wh = 1,
+  wr = 1.3088,
+  wf = 2.5948;
+
+function Pf(i) {
+  return [1, 0.5, 0, 0, 0, 0, 0, 0, 0.5, 1, 1][i];
+}
+function Pr(i) {
+  // return [1.5, 0.5, 0, 1][i]; // With number row
+  return [0.5, 0, 1][i]; // Without number row
+}
+function Ph(hand: "L" | "R") {
+  return hand === "L" ? 0.2 : 0; // Righty
+}
 export function penaltyEffort(triad: string) {
-  return 1 * triad.length;
+  return (
+    k1 *
+    penaltyEffortKey(triad[0]) *
+    (1 +
+      k2 * penaltyEffortKey(triad[1]) * (1 + k3 * penaltyEffortKey(triad[2])))
+  );
+}
+
+// 𝑝𝑖𝑗=𝑤0+𝑤hand * 𝑃hand𝑗 + 𝑤row * 𝑃row𝑗 + 𝑤finger * 𝑃finger𝑗
+//  increased effort of the use of weak fingers (e.g. pinky)
+// 𝑝𝑖𝑗 : Penalty of triad 𝑖 at key 𝑗 (j:1,2,3)
+// 𝑤 : weights
+// 𝑤0 : default penalty (no penalty : 0)
+// 𝑤hand :
+//
+export function penaltyEffortKey(char: string) {
+  if (char.length !== 1) {
+    throw new Error("key length must be 1");
+  }
+
+  return (
+    w0 +
+    wh * penaltyHand(char) +
+    wr * penaltyRow(char) +
+    wf * penaltyFinger(char)
+  );
+}
+
+export function penaltyHand(char: string) {
+  let effort = 1;
+
+  layout.forEach((layoutRow) => {
+    const idx = layoutRow.findIndex((layoutChar) => layoutChar === char);
+    if (idx !== -1) {
+      effort = Ph(idx < 5 ? "L" : "R");
+    }
+  });
+
+  return effort;
+}
+
+export function penaltyRow(char: string) {
+  let effort = 1;
+
+  layout.forEach((layoutRow, rowIdx) => {
+    const idx = layoutRow.findIndex((layoutChar) => layoutChar === char);
+    if (idx !== -1) {
+      effort = Pr(rowIdx);
+    }
+  });
+
+  return effort;
+}
+
+export function penaltyFinger(char: string) {
+  let effort = 1;
+
+  layout.forEach((layoutRow) => {
+    const idx = layoutRow.findIndex((layoutChar) => layoutChar === char);
+    if (idx !== -1) {
+      effort = Pf(idx);
+    }
+  });
+
+  return effort;
 }
 
 export function strokeEffort(triad: string) {
