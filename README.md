@@ -12,6 +12,7 @@ So this is a Thai version of Carpalx, and also the extension which introduce typ
 - [ ] Thai layout support, with Kedmanee & Pattachote
 - [ ] Shifted keys typing effort model
 - [ ] Adjustable parameters (eg. Dominant hand, pinky penalty weight, etc.)
+- [ ] Ortholinear-layout support (eg. Planck, Ergodox)
 
 ## References
 
