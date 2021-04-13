@@ -184,8 +184,220 @@ export function penaltyFinger(char: string) {
   return effort;
 }
 
+// 𝑠𝑖=∑(𝑗=hand, row, finger) 𝑓𝑗 * 𝑝𝑗
+// 𝑓𝑗 : fh, fr, ff (constant : [1, 0.3, 0.3])
+// pj : ph, pr, pf
+// 𝑝h : hand-alternation (0 - 2)
+// 𝑝r : row-alternation (0 - 7)
+// 𝑝f : finger-alternation (0 - 7)
+const fh = 1,
+  fr = 0.3,
+  ff = 0.3;
+
 export function strokeEffort(triad: string) {
-  return 1 * triad.length;
+  return (
+    fh * handAltStrokeEffort(triad) +
+    fr * rowAltStrokeEffort(triad) +
+    ff * fingerAltStrokeEffort(triad)
+  );
+}
+
+export function handAltStrokeEffort(triad: string): number {
+  const [c1, c2, c3] = triad;
+  let c1h, c2h, c3h;
+
+  layout.forEach((layoutRow) => {
+    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c1);
+    if (idx !== -1) {
+      c1h = idx < 5 ? "L" : "R";
+    }
+  });
+
+  layout.forEach((layoutRow) => {
+    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c2);
+    if (idx !== -1) {
+      c2h = idx < 5 ? "L" : "R";
+    }
+  });
+
+  layout.forEach((layoutRow) => {
+    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c3);
+    if (idx !== -1) {
+      c3h = idx < 5 ? "L" : "R";
+    }
+  });
+
+  if (c1h == c3h) {
+    if (c2h == c3h) {
+      return 2;
+    }
+
+    return 1;
+  }
+
+  return 0;
+}
+
+export function rowAltStrokeEffort(triad: string): number {
+  const [c1, c2, c3] = triad;
+  let [c1r, c2r, c3r] = [-1, -1, -1];
+
+  layout.forEach((layoutRow, rowIdx) => {
+    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c1);
+    if (idx !== -1) {
+      c1r = rowIdx;
+    }
+  });
+
+  layout.forEach((layoutRow, rowIdx) => {
+    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c2);
+    if (idx !== -1) {
+      c2r = rowIdx;
+    }
+  });
+
+  layout.forEach((layoutRow, rowIdx) => {
+    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c3);
+    if (idx !== -1) {
+      c3r = rowIdx;
+    }
+  });
+
+  if (c1r == c3r && c2r == c3r) {
+    return 0;
+  }
+
+  // 1 = 2 < 3 or 1 < 2 = 3
+  if ((c1r == c2r && c2r < c3r) || (c1r < c2r && c2r == c3r)) {
+    return 1;
+  }
+
+  // 1 = 2 > 3 or 1 > 2 = 3
+  if ((c1r == c2r && c2r > c3r) || (c1r > c2r && c2r == c3r)) {
+    return 2;
+  }
+
+  // 1 = 3 and 2 is 1 row away
+  if (c1r == c3r && Math.abs(c1r - c2r) == 1) {
+    return 3;
+  }
+
+  // 1 < 2 < 3
+  if (c1r < c2r && c2r < c3r) {
+    return 4;
+  }
+
+  // 1 > 2 and 3 is more than row away downward eg. aqz
+  if (c1r > c2r && c3r - c2r > 1) {
+    return 5;
+  }
+
+  // 1 > 2 > 3
+  if (c1r > c2r && c2r > c3r) {
+    return 6;
+  }
+
+  // 1 < 2 and 3 is more than row away upward eg. azq
+  if (c1r < c2r && c2r - c3r > 1) {
+    return 7;
+  }
+
+  // impossible!
+  throw new Error(`Unhandled case found : ${triad}`);
+}
+
+export function fingerAltStrokeEffort(triad: string): number {
+  const [c1, c2, c3] = triad;
+  let [c1f, c2f, c3f] = [-1, -1, -1];
+  const fingerMap = [0, 1, 2, 3, 3, 6, 6, 7, 8, 9, 9, 9, 9, 9];
+
+  layout.forEach((layoutRow) => {
+    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c1);
+    if (idx !== -1) {
+      c1f = fingerMap[idx];
+    }
+  });
+
+  layout.forEach((layoutRow) => {
+    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c2);
+    if (idx !== -1) {
+      c2f = fingerMap[idx];
+    }
+  });
+
+  layout.forEach((layoutRow) => {
+    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c3);
+    if (idx !== -1) {
+      c3f = fingerMap[idx];
+    }
+  });
+
+  // 1 < 2 < 3 or 1 > 2 > 3
+  if ((c1f < c2f && c2f < c3f) || (c1f > c2f && c2f > c3f)) {
+    return 0;
+  }
+
+  // 1 = 2 < 3 or 1 < 2 = 3 or 1 = 2 > 3 or 1 > 2 = 3
+  // and with key repeat
+  if (
+    (c1 == c2 && c2f < c3f) ||
+    (c1f < c2f && c2 == c3) ||
+    (c1 == c2 && c2f > c3f) ||
+    (c1f > c2f && c2 == c3)
+  ) {
+    return 1;
+  }
+
+  // 1 > 2 and 1 > 3 and 2 < 3
+  // or
+  // 1 < 2 and 1 < 3 and 3 < 2
+  if (
+    (c1f > c2f && c1f > c3f && c2f < c3f) ||
+    (c1f < c2f && c1f < c3f && c3f < c2f)
+  ) {
+    return 2;
+  }
+
+  // 1 < 2 and 2 > 3 and 1 > 3
+  // or
+  // 1 > 2 and 2 < 3 and 1 < 3
+  if (
+    (c1f < c2f && c2f > c3f && c1f > c3f) ||
+    (c1f > c2f && c2f < c3f && c1f < c3f)
+  ) {
+    return 3;
+  }
+
+  // 1 = 3 != 2
+  if (c1f == c3f && c1f != c2f) {
+    return 4;
+  }
+
+  // 1 = 2 = 3
+  // with key repeat
+  if (c1f == c2f && c2f == c3f && (c1 == c2 || c2 == c3 || c1 == c3)) {
+    return 5;
+  }
+
+  // 1 = 2 < 3 or 1 < 2 = 3 or 1 = 2 > 3 or 1 > 2 = 3
+  // and without key repeat
+  if (
+    (c1f == c2f && c2f < c3f) ||
+    (c1f < c2f && c2f == c3f) ||
+    (c1f == c2f && c2f > c3f) ||
+    (c1f > c2f && c2f == c3f)
+  ) {
+    return 6;
+  }
+
+  // 1 = 2 = 3
+  // without key repeat
+  if (c1f == c2f && c2f == c3f && c1 !== c2 && c2 !== c3 && c1 !== c3) {
+    return 7;
+  }
+
+  // impossible!
+  throw new Error(`Unhandled case found : ${triad}`);
 }
 
 // console.log(typingEffort(triads));

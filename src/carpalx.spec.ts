@@ -1,9 +1,13 @@
 import {
   baseEffortKey,
+  fingerAltStrokeEffort,
+  handAltStrokeEffort,
   penaltyEffortKey,
   penaltyFinger,
   penaltyHand,
   penaltyRow,
+  rowAltStrokeEffort,
+  strokeEffort,
 } from "./carpalx";
 
 describe("baseEffortKey", () => {
@@ -80,6 +84,131 @@ describe("penaltyEffortKey", () => {
 
       expect(penaltyEffortKey("บ")).toEqual(wf * 1 + wr * 1 + wh * 0.2);
       expect(penaltyEffortKey("ว")).toEqual(wf * 0.5 + wr * 0.5 + wh * 0);
+    });
+  });
+});
+
+describe("strokeEffort", () => {
+  it("ultimately returns 0 for งาน, ทาน", () => {
+    expect(strokeEffort("งาน")).toEqual(0);
+    expect(strokeEffort("ทาน")).toEqual(0);
+  });
+
+  describe("handAltStrokeEffort", () => {
+    it("returns 0 for triads which use both of hand, without alternating back", () => {
+      expect(handAltStrokeEffort("ยาว")).toEqual(0);
+      expect(handAltStrokeEffort("ไทย")).toEqual(0);
+    });
+
+    it("returns 1 for triads which use both of hand, with alternating back", () => {
+      expect(handAltStrokeEffort("กาง")).toEqual(1);
+      expect(handAltStrokeEffort("จอด")).toEqual(1);
+    });
+
+    it("returns 2 for triads which use only one hand", () => {
+      expect(handAltStrokeEffort("กลบ")).toEqual(2);
+      expect(handAltStrokeEffort("ดาว")).toEqual(2);
+    });
+  });
+
+  describe("rowAltStrokeEffort", () => {
+    it("returns 0 for triads which use same row", () => {
+      expect(rowAltStrokeEffort("กาง")).toEqual(0);
+      expect(rowAltStrokeEffort("ตอม")).toEqual(0);
+      expect(rowAltStrokeEffort("หลบ")).toEqual(0);
+    });
+
+    it("returns 1 for triads which use downward progression row, with repetition", () => {
+      expect(rowAltStrokeEffort("ตอน")).toEqual(1);
+      expect(rowAltStrokeEffort("แมง")).toEqual(1);
+      expect(rowAltStrokeEffort("เกจ")).toEqual(1);
+    });
+
+    it("returns 2 for triads which use upward progression row, with repetition", () => {
+      expect(rowAltStrokeEffort("ลาน")).toEqual(2);
+      expect(rowAltStrokeEffort("งวด")).toEqual(2);
+      expect(rowAltStrokeEffort("จอย")).toEqual(2);
+    });
+
+    it("returns 3 for triads which have some different row, not monotonic, max row change 1", () => {
+      expect(rowAltStrokeEffort("เอก")).toEqual(3);
+      expect(rowAltStrokeEffort("มาย")).toEqual(3);
+      expect(rowAltStrokeEffort("เบา")).toEqual(3);
+    });
+
+    it("returns 4 for triads which use downward progression row, without repetition", () => {
+      expect(rowAltStrokeEffort("วาบ")).toEqual(4);
+      expect(rowAltStrokeEffort("ตาล")).toEqual(4);
+      expect(rowAltStrokeEffort("วีล")).toEqual(4);
+    });
+
+    it("returns 5 for triads which have some different, not monotonic, max row change downward >1", () => {
+      expect(rowAltStrokeEffort("เวบ")).toEqual(5);
+      expect(rowAltStrokeEffort("กอบ")).toEqual(5);
+      expect(rowAltStrokeEffort("ทอส")).toEqual(5);
+    });
+
+    it("returns 6 for triads which use upward progression row, without repetition", () => {
+      expect(rowAltStrokeEffort("บ้อ")).toEqual(6);
+      expect(rowAltStrokeEffort("พาย")).toEqual(6);
+      expect(rowAltStrokeEffort("ลาว")).toEqual(6);
+    });
+
+    it("returns 7 for triads which have some different, not monotonic, max row change upward >1", () => {
+      expect(rowAltStrokeEffort("กลอ")).toEqual(7);
+      expect(rowAltStrokeEffort("ทลว")).toEqual(7);
+      expect(rowAltStrokeEffort("ไพร")).toEqual(7);
+    });
+  });
+
+  describe("fingerAltStrokeEffort", () => {
+    it("returns 0 for triads which use all different, monotonic progression", () => {
+      expect(fingerAltStrokeEffort("ทอน")).toEqual(0);
+      expect(fingerAltStrokeEffort("บอด")).toEqual(0);
+      expect(fingerAltStrokeEffort("ลอา")).toEqual(0);
+    });
+
+    it("returns 1 for triads which use some different, key repeat, monotonic progression", () => {
+      expect(fingerAltStrokeEffort("แดด")).toEqual(1);
+      expect(fingerAltStrokeEffort("เกก")).toEqual(1);
+      expect(fingerAltStrokeEffort("แบบ")).toEqual(1);
+    });
+
+    it("returns 2 for triads which use rolling-in fingers", () => {
+      expect(fingerAltStrokeEffort("เท่")).toEqual(2);
+      expect(fingerAltStrokeEffort("ขัน")).toEqual(2);
+      expect(fingerAltStrokeEffort("เบา")).toEqual(2);
+      expect(fingerAltStrokeEffort("เอา")).toEqual(2);
+    });
+
+    it("returns 3 for triads which use all different fingers, not monotonic", () => {
+      expect(fingerAltStrokeEffort("ท้า")).toEqual(3);
+      expect(fingerAltStrokeEffort("เข้")).toEqual(3);
+      expect(fingerAltStrokeEffort("อ้น")).toEqual(3);
+    });
+
+    it("returns 4 for triads which use some different fingers, not monotonic progression", () => {
+      expect(fingerAltStrokeEffort("สกา")).toEqual(4);
+      expect(fingerAltStrokeEffort("เลว")).toEqual(4);
+      expect(fingerAltStrokeEffort("ดอด")).toEqual(4);
+    });
+
+    it("returns 5 for triads which use same finger, key repeat", () => {
+      expect(fingerAltStrokeEffort("ออก")).toEqual(5);
+      expect(fingerAltStrokeEffort("ววจ")).toEqual(5);
+      expect(fingerAltStrokeEffort("ปทท")).toEqual(5);
+    });
+
+    it("returns 6 for triads which use some different fingers, no key repeat, monotonic progression", () => {
+      expect(fingerAltStrokeEffort("แอก")).toEqual(6);
+      expect(fingerAltStrokeEffort("ไลย")).toEqual(6);
+      expect(fingerAltStrokeEffort("เบ็")).toEqual(6);
+    });
+
+    it("returns 7 for triads which same finger, no key repeat", () => {
+      expect(fingerAltStrokeEffort("ริก")).toEqual(7);
+      expect(fingerAltStrokeEffort("สาด")).toEqual(7);
+      expect(fingerAltStrokeEffort("หอก")).toEqual(7);
     });
   });
 });
