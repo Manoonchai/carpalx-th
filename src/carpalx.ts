@@ -112,7 +112,7 @@ export default class Carpalx {
     }
 
     const row = this.layout.getRow(char);
-    const col = this.layout.getColumn(char);
+    const col = this.layout.getColumn(char)!;
 
     if (row != -1) {
       return baseEffortMatrix[row][col];

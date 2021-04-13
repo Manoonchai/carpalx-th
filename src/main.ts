@@ -1,6 +1,9 @@
 import Carpalx from "./carpalx";
 import { Layout } from "./layout";
+
 import { thai5k } from "../data/thai5k";
+import { wisesight } from "../data/wisesight";
+import { wongnai } from "../data/wongnai";
 
 const kedmaneeLayout = new Layout({ name: "kedmanee" });
 const kedmaneeCarpalx = new Carpalx({ layout: kedmaneeLayout });
@@ -18,4 +21,24 @@ console.log(
 console.log(
   "Pattachote Typing Effort (Thai5k triads) :",
   pattachoteCarpalx.typingEffort(thai5k)
+);
+
+console.log(
+  "Kedmanee Typing Effort (Wisesight Sentiment triads) :",
+  kedmaneeCarpalx.typingEffort(wisesight)
+);
+
+console.log(
+  "Pattachote Typing Effort (Wisesight Sentiment triads) :",
+  pattachoteCarpalx.typingEffort(wisesight)
+);
+
+console.log(
+  "Kedmanee Typing Effort (Wongnai Corpus triads) :",
+  kedmaneeCarpalx.typingEffort(wongnai)
+);
+
+console.log(
+  "Pattachote Typing Effort (Wongnai Corpus triads) :",
+  pattachoteCarpalx.typingEffort(wongnai)
 );
