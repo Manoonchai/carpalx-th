@@ -46,9 +46,9 @@ describe("baseEffortKey", () => {
       expect(efforts).toEqual([4, 4, 4, 4, 5, 6, 4, 4, 4, 4, 5, 6]);
     });
 
-    it("falls back to 6 if not found", () => {
-      expect(carpalx.baseEffortKey("a")).toEqual(6);
-      expect(carpalx.baseEffortKey("0")).toEqual(6);
+    it("raises error if not found", () => {
+      expect(() => carpalx.baseEffortKey("a")).toThrow();
+      expect(() => carpalx.baseEffortKey("0")).toThrow();
     });
 
     it("raises error if char is longer than 1", () => {

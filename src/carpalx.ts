@@ -27,8 +27,6 @@ const baseEffortMatrix = [
   [2, 2, 2, 2, 3.5, 2, 2, 2, 2, 2], //down row
 ];
 
-const baseEffortFallback = 6; // fallback for number row
-
 interface Triads {
   [triad: string]: number;
 }
@@ -107,7 +105,7 @@ export default class Carpalx {
       return baseEffortMatrix[row][col];
     }
 
-    return baseEffortFallback;
+    throw new Error(`Cannot find base effort for character "${char}"`);
   }
 
   private Pf(i: number) {
