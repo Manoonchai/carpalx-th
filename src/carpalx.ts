@@ -343,9 +343,3 @@ export function layerChangeEffort(triad: string): number {
   // impossible!
   throw new Error(`Unhandled case found : ${triad}`);
 }
-
-// const triads: Triads = {
-//   ครั: 1,
-//   รับ: 2,
-// };
-// console.log(typingEffort(triads));
