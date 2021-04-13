@@ -13,7 +13,7 @@ const kb = 0.3555,
 const [k1, k2, k3] = wb;
 
 const baseEffortMatrix = [
-  // [ 4, 4, 4, 4, 5, 6, 4, 4, 4, 4, 5, 6, 7 ], // number row
+  [4, 4, 4, 4, 5, 6, 4, 4, 4, 4, 5, 6], // number row
   [2, 2, 2, 2, 2.5, 3, 2, 2, 2, 2, 2.5, 4, 6], //row 1
   [0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 2], //row 2 base
   [2, 2, 2, 2, 3.5, 2, 2, 2, 2, 2], //down row
@@ -102,8 +102,7 @@ function Pf(i: number) {
 }
 
 function Pr(i: number) {
-  // return [1.5, 0.5, 0, 1][i]; // With number row
-  return [0.5, 0, 1][i]; // Without number row
+  return [1.5, 0.5, 0, 1][i]; // With number row
 }
 
 function Ph(hand: "L" | "R") {

@@ -22,6 +22,7 @@ describe("Layout", () => {
       expect(layout.matrix).toBeDefined();
 
       expect(layout.matrix).toEqual([
+        ["1", "๒", "๓", "๔", "๕", "ู", "๗", "๘", "๙", "๐", "๑", "๖"],
         ["็", "ต", "ย", "อ", "ร", "่", "ด", "ม", "ว", "แ", "ใ", "ฌ", "ฃ"],
         ["้", "ท", "ง", "ก", "ั", "ี", "า", "น", "เ", "ไ", "ข"],
         ["บ", "ป", "ล", "ห", "ิ", "ค", "ส", "ะ", "จ", "พ"],
@@ -34,6 +35,7 @@ describe("Layout", () => {
       expect(layout.matrix).toBeDefined();
 
       expect(layout.matrix).toEqual([
+        ["ๅ", "/", "_", "ภ", "ถ", "ุ", "ึ", "ค", "ต", "จ", "ข", "ช"],
         ["ๆ", "ไ", "ำ", "พ", "ะ", "ั", "ี", "ร", "น", "ย", "บ", "ล", "ฃ"],
         ["ฟ", "ห", "ก", "ด", "เ", "้", "่", "า", "ส", "ว", "ง"],
         ["ผ", "ป", "แ", "อ", "ิ", "ื", "ท", "ม", "ใ", "ฝ"],
@@ -48,22 +50,27 @@ describe("Layout", () => {
       layout = new Layout();
     });
 
-    it("returns 0 for top row char", () => {
-      expect(layout.getRow("อ")).toEqual(0);
-      expect(layout.getRow("ย")).toEqual(0);
-      expect(layout.getRow("ต")).toEqual(0);
+    it("returns 0 for number row char", () => {
+      expect(layout.getRow("ู")).toEqual(0);
+      expect(layout.getRow("๒")).toEqual(0);
     });
 
-    it("returns 1 for home row char", () => {
-      expect(layout.getRow("ท")).toEqual(1);
-      expect(layout.getRow("ง")).toEqual(1);
-      expect(layout.getRow("ก")).toEqual(1);
+    it("returns 1 for upper row char", () => {
+      expect(layout.getRow("อ")).toEqual(1);
+      expect(layout.getRow("ย")).toEqual(1);
+      expect(layout.getRow("ต")).toEqual(1);
     });
 
-    it("returns 2 for bottom row char", () => {
-      expect(layout.getRow("บ")).toEqual(2);
-      expect(layout.getRow("ป")).toEqual(2);
-      expect(layout.getRow("ล")).toEqual(2);
+    it("returns 2 for home row char", () => {
+      expect(layout.getRow("ท")).toEqual(2);
+      expect(layout.getRow("ง")).toEqual(2);
+      expect(layout.getRow("ก")).toEqual(2);
+    });
+
+    it("returns 3 for lower row char", () => {
+      expect(layout.getRow("บ")).toEqual(3);
+      expect(layout.getRow("ป")).toEqual(3);
+      expect(layout.getRow("ล")).toEqual(3);
     });
   });
 

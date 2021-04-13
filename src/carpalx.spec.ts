@@ -38,11 +38,15 @@ describe("baseEffortKey", () => {
       expect(efforts).toEqual([2, 2, 2, 2, 3.5, 2, 2, 2, 2, 2]);
     });
 
+    it("returns [4, 4, 4, 4, 5, 6, 4, 4, 4, 4, 5, 6, 7], on number row keys", () => {
+      const efforts = "1๒๓๔๕ู๗๘๙๐๑๖".split("").map((k) => baseEffortKey(k));
+
+      expect(efforts).toEqual([4, 4, 4, 4, 5, 6, 4, 4, 4, 4, 5, 6]);
+    });
+
     it("falls back to 6 if not found", () => {
-      expect(baseEffortKey("ู")).toEqual(6);
-      expect(baseEffortKey("ุ")).toEqual(6);
       expect(baseEffortKey("a")).toEqual(6);
-      expect(baseEffortKey("๑")).toEqual(6);
+      expect(baseEffortKey("0")).toEqual(6);
     });
 
     it("raises error if char is longer than 1", () => {
