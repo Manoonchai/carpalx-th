@@ -35,11 +35,6 @@ interface Triads {
   [triad: string]: number;
 }
 
-// const triads: Triads = {
-//   ครั: 1,
-//   รับ: 2,
-// };
-
 // 𝐸=1𝑁∑𝑖𝑛𝑖𝑒𝑖
 // E : typingEffort
 // N : triadsCount
@@ -287,8 +282,9 @@ export function rowAltStrokeEffort(triad: string): number {
     return 4;
   }
 
-  // 1 > 2 and 3 is more than row away downward eg. aqz
-  if (c1r > c2r && c3r - c2r > 1) {
+  // aqz : 1 > 2 and 3 is more than row away downward
+  // qza : 2 > 3 and 1 is more than row away downward
+  if ((c1r > c2r && c3r - c2r > 1) || (c2r > c3r && c2r - c1r > 1)) {
     return 5;
   }
 
@@ -297,8 +293,9 @@ export function rowAltStrokeEffort(triad: string): number {
     return 6;
   }
 
-  // 1 < 2 and 3 is more than row away upward eg. azq
-  if (c1r < c2r && c2r - c3r > 1) {
+  // azq : 1 < 2 and 3 is more than row away upward
+  // zqa : 2 < 3 and 1 is more than row away upward
+  if ((c1r < c2r && c2r - c3r > 1) || (c2r < c3r && c1r - c2r > 1)) {
     return 7;
   }
 
@@ -400,4 +397,8 @@ export function fingerAltStrokeEffort(triad: string): number {
   throw new Error(`Unhandled case found : ${triad}`);
 }
 
+// const triads: Triads = {
+//   ครั: 1,
+//   รับ: 2,
+// };
 // console.log(typingEffort(triads));

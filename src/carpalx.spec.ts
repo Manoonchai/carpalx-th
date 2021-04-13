@@ -146,6 +146,7 @@ describe("strokeEffort", () => {
       expect(rowAltStrokeEffort("เวบ")).toEqual(5);
       expect(rowAltStrokeEffort("กอบ")).toEqual(5);
       expect(rowAltStrokeEffort("ทอส")).toEqual(5);
+      expect(rowAltStrokeEffort("อลั")).toEqual(5);
     });
 
     it("returns 6 for triads which use upward progression row, without repetition", () => {
@@ -158,6 +159,7 @@ describe("strokeEffort", () => {
       expect(rowAltStrokeEffort("กลอ")).toEqual(7);
       expect(rowAltStrokeEffort("ทลว")).toEqual(7);
       expect(rowAltStrokeEffort("ไพร")).toEqual(7);
+      expect(rowAltStrokeEffort("ครั")).toEqual(7);
     });
   });
 
