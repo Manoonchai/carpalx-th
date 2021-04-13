@@ -11,6 +11,9 @@ const kedmaneeCarpalx = new Carpalx({ layout: kedmaneeLayout });
 const pattachoteLayout = new Layout({ name: "pattachote" });
 const pattachoteCarpalx = new Carpalx({ layout: pattachoteLayout });
 
+const ikbaebLayout = new Layout({ name: "ikbaeb" });
+const ikbaebCarpalx = new Carpalx({ layout: ikbaebLayout });
+
 console.log("Carpalx Typing Effort (Lower is better)");
 
 console.log(
@@ -24,6 +27,11 @@ console.log(
 );
 
 console.log(
+  "Ikbaeb Typing Effort (Thai5k triads) :",
+  ikbaebCarpalx.typingEffort(thai5k)
+);
+
+console.log(
   "Kedmanee Typing Effort (Wisesight Sentiment triads) :",
   kedmaneeCarpalx.typingEffort(wisesight)
 );
@@ -34,6 +42,11 @@ console.log(
 );
 
 console.log(
+  "Ikbaeb Typing Effort (Wisesight Sentiment triads) :",
+  ikbaebCarpalx.typingEffort(wisesight)
+);
+
+console.log(
   "Kedmanee Typing Effort (Wongnai Corpus triads) :",
   kedmaneeCarpalx.typingEffort(wongnai)
 );
@@ -41,4 +54,9 @@ console.log(
 console.log(
   "Pattachote Typing Effort (Wongnai Corpus triads) :",
   pattachoteCarpalx.typingEffort(wongnai)
+);
+
+console.log(
+  "Ikbaeb Typing Effort (Wongnai Corpus triads) :",
+  ikbaebCarpalx.typingEffort(wongnai)
 );
