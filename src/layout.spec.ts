@@ -26,6 +26,10 @@ describe("Layout", () => {
         ["็", "ต", "ย", "อ", "ร", "่", "ด", "ม", "ว", "แ", "ใ", "ฌ", "ฃ"],
         ["้", "ท", "ง", "ก", "ั", "ี", "า", "น", "เ", "ไ", "ข"],
         ["บ", "ป", "ล", "ห", "ิ", "ค", "ส", "ะ", "จ", "พ"],
+        ["1", '"', "/", ",", "?", "ุ", "_", ".", "(", ")", "-", "%"],
+        ["๊", "ฤ", "ๆ", "ญ", "ษ", "ึ", "ฝ", "ซ", "ถ", "ฒ", "ฯ", "ฦ", "ฅ"],
+        ["๋", "ธ", "ำ", "ณ", "์", "ื", "ผ", "ช", "โ", "ฆ", "ฑ"],
+        ["ฎ", "ฏ", "ฐ", "ภ", "ั", "ศ", "ฮ", "ฟ", "ฉ", "พ"],
       ]);
     });
 
@@ -39,6 +43,10 @@ describe("Layout", () => {
         ["ๆ", "ไ", "ำ", "พ", "ะ", "ั", "ี", "ร", "น", "ย", "บ", "ล", "ฃ"],
         ["ฟ", "ห", "ก", "ด", "เ", "้", "่", "า", "ส", "ว", "ง"],
         ["ผ", "ป", "แ", "อ", "ิ", "ื", "ท", "ม", "ใ", "ฝ"],
+        ["+", "๑", "๒", "๓", "๔", "ู", "฿", "๕", "๖", "๗", "๘", "๙"],
+        ["๐", '"', "ฎ", "ฑ", "ธ", "ํ", "๊", "ณ", "ฯ", "ญ", "ฐ", ",", "ฅ"],
+        ["ฤ", "ฆ", "ฏ", "โ", "ฌ", "็", "๋", "ษ", "ศ", "ซ", "."],
+        ["(", ")", "ฉ", "ฮ", "ฺ", "์", "?", "ฒ", "ฬ", "ฦ"],
       ]);
     });
   });
@@ -53,24 +61,40 @@ describe("Layout", () => {
     it("returns 0 for number row char", () => {
       expect(layout.getRow("ู")).toEqual(0);
       expect(layout.getRow("๒")).toEqual(0);
+
+      // Shifted
+      expect(layout.getRow("ุ")).toEqual(0);
+      expect(layout.getRow("_")).toEqual(0);
     });
 
     it("returns 1 for upper row char", () => {
       expect(layout.getRow("อ")).toEqual(1);
       expect(layout.getRow("ย")).toEqual(1);
       expect(layout.getRow("ต")).toEqual(1);
+
+      // Shifted
+      expect(layout.getRow("ฤ")).toEqual(1);
+      expect(layout.getRow("ซ")).toEqual(1);
     });
 
     it("returns 2 for home row char", () => {
       expect(layout.getRow("ท")).toEqual(2);
       expect(layout.getRow("ง")).toEqual(2);
       expect(layout.getRow("ก")).toEqual(2);
+
+      // Shifted
+      expect(layout.getRow("โ")).toEqual(2);
+      expect(layout.getRow("ฆ")).toEqual(2);
     });
 
     it("returns 3 for lower row char", () => {
       expect(layout.getRow("บ")).toEqual(3);
       expect(layout.getRow("ป")).toEqual(3);
       expect(layout.getRow("ล")).toEqual(3);
+
+      // Shifted
+      expect(layout.getRow("ฏ")).toEqual(3);
+      expect(layout.getRow("ฟ")).toEqual(3);
     });
   });
 
@@ -95,6 +119,21 @@ describe("Layout", () => {
       expect(layout.getColumn("ใ")).toEqual(10);
       expect(layout.getColumn("ฌ")).toEqual(11);
       expect(layout.getColumn("ฃ")).toEqual(12);
+
+      // Shifted
+      expect(layout.getColumn("ฎ")).toEqual(0);
+      expect(layout.getColumn("ฤ")).toEqual(1);
+      expect(layout.getColumn("ๆ")).toEqual(2);
+      expect(layout.getColumn("ภ")).toEqual(3);
+      expect(layout.getColumn("ษ")).toEqual(4);
+      expect(layout.getColumn("ศ")).toEqual(5);
+      expect(layout.getColumn("ผ")).toEqual(6);
+      expect(layout.getColumn("ซ")).toEqual(7);
+      expect(layout.getColumn("โ")).toEqual(8);
+      expect(layout.getColumn("ฆ")).toEqual(9);
+      expect(layout.getColumn("ฯ")).toEqual(10);
+      expect(layout.getColumn("ฦ")).toEqual(11);
+      expect(layout.getColumn("ฅ")).toEqual(12);
     });
   });
 
@@ -119,6 +158,20 @@ describe("Layout", () => {
       expect(layout.getFinger("ใ")).toEqual(9);
       expect(layout.getFinger("ฌ")).toEqual(9);
       expect(layout.getFinger("ฃ")).toEqual(9);
+
+      expect(layout.getFinger("ฎ")).toEqual(0);
+      expect(layout.getFinger("ฤ")).toEqual(1);
+      expect(layout.getFinger("ๆ")).toEqual(2);
+      expect(layout.getFinger("ญ")).toEqual(3);
+      expect(layout.getFinger("ษ")).toEqual(3);
+      expect(layout.getFinger("ศ")).toEqual(6);
+      expect(layout.getFinger("ผ")).toEqual(6);
+      expect(layout.getFinger("ซ")).toEqual(7);
+      expect(layout.getFinger("ถ")).toEqual(8);
+      expect(layout.getFinger("ฒ")).toEqual(9);
+      expect(layout.getFinger("ฯ")).toEqual(9);
+      expect(layout.getFinger("ฦ")).toEqual(9);
+      expect(layout.getFinger("ฅ")).toEqual(9);
     });
   });
 
@@ -143,6 +196,21 @@ describe("Layout", () => {
       expect(layout.getHand("ใ")).toEqual("R");
       expect(layout.getHand("ฌ")).toEqual("R");
       expect(layout.getHand("ฃ")).toEqual("R");
+
+      // Shifted
+      expect(layout.getHand("ฎ")).toEqual("L");
+      expect(layout.getHand("ฤ")).toEqual("L");
+      expect(layout.getHand("ๆ")).toEqual("L");
+      expect(layout.getHand("ญ")).toEqual("L");
+      expect(layout.getHand("ษ")).toEqual("L");
+      expect(layout.getHand("ศ")).toEqual("L");
+      expect(layout.getHand("ผ")).toEqual("R");
+      expect(layout.getHand("ซ")).toEqual("R");
+      expect(layout.getHand("ถ")).toEqual("R");
+      expect(layout.getHand("ฒ")).toEqual("R");
+      expect(layout.getHand("ฯ")).toEqual("R");
+      expect(layout.getHand("ฦ")).toEqual("R");
+      expect(layout.getHand("ฅ")).toEqual("R");
     });
   });
 });
