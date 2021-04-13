@@ -19,6 +19,8 @@ const LAYOUTS: ILayoutMatrix = {
   ],
 };
 
+const FINGER_MAP = [0, 1, 2, 3, 3, 6, 6, 7, 8, 9, 9, 9, 9, 9];
+
 export class Layout {
   public name: LayoutOptions["name"];
 
@@ -34,5 +36,31 @@ export class Layout {
     return this.matrix.findIndex((layoutRow) => {
       return layoutRow.findIndex((layoutChar) => layoutChar === char) !== -1;
     });
+  }
+
+  public getColumn(char: string) {
+    let col = -1;
+
+    this.matrix.every((layoutRow) => {
+      const idx = layoutRow.findIndex((layoutChar) => layoutChar === char);
+
+      if (idx !== -1) {
+        col = idx;
+
+        return false;
+      }
+
+      return true;
+    });
+
+    return col;
+  }
+
+  public getFinger(char: string) {
+    return FINGER_MAP[this.getColumn(char)];
+  }
+
+  public getHand(char: string) {
+    return this.getColumn(char) <= 5 ? "L" : "R";
   }
 }
