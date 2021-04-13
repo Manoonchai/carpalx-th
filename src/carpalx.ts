@@ -1,3 +1,5 @@
+import { Layout } from "./layout";
+
 // Default model params
 const kb = 0.3555,
   kp = 0.6423,
@@ -19,11 +21,7 @@ const baseEffortMatrix = [
 
 const baseEffortFallback = 6; // fallback for number row
 
-const layout = [
-  ["็", "ต", "ย", "อ", "ร", "่", "ด", "ม", "ว", "แ", "ใ", "ฌ", "ฃ"],
-  ["้", "ท", "ง", "ก", "ั", "ี", "า", "น", "เ", "ไ", "ข"],
-  ["บ", "ป", "ล", "ห", "ิ", "ค", "ส", "ะ", "จ", "พ"],
-];
+const layout = new Layout();
 
 // const layoutShifted = [
 //   ["๊", "ฤ", "ๆ", "ญ", "ษ", "ึ", "ฝ", "ซ", "ถ", "ฒ", "ฯ", "ฦ", "ฅ"],
@@ -84,16 +82,14 @@ export function baseEffortKey(char: string) {
     throw new Error("key length must be 1");
   }
 
-  let effort = baseEffortFallback;
+  const row = layout.getRow(char);
+  const col = layout.getColumn(char);
 
-  layout.forEach((layoutRow, rowIdx) => {
-    const idx = layoutRow.findIndex((layoutChar) => layoutChar === char);
-    if (idx !== -1) {
-      effort = baseEffortMatrix[rowIdx][idx];
-    }
-  });
+  if (row != -1) {
+    return baseEffortMatrix[row][col];
+  }
 
-  return effort;
+  return baseEffortFallback;
 }
 
 const w0 = 0,
@@ -104,13 +100,16 @@ const w0 = 0,
 function Pf(i: number) {
   return [1, 0.5, 0, 0, 0, 0, 0, 0, 0.5, 1, 1][i];
 }
+
 function Pr(i: number) {
   // return [1.5, 0.5, 0, 1][i]; // With number row
   return [0.5, 0, 1][i]; // Without number row
 }
+
 function Ph(hand: "L" | "R") {
   return hand === "L" ? 0.2 : 0; // Righty
 }
+
 export function penaltyEffort(triad: string) {
   return (
     k1 *
@@ -141,42 +140,15 @@ export function penaltyEffortKey(char: string) {
 }
 
 export function penaltyHand(char: string) {
-  let effort = 1;
-
-  layout.forEach((layoutRow) => {
-    const idx = layoutRow.findIndex((layoutChar) => layoutChar === char);
-    if (idx !== -1) {
-      effort = Ph(idx < 5 ? "L" : "R");
-    }
-  });
-
-  return effort;
+  return Ph(layout.getHand(char));
 }
 
 export function penaltyRow(char: string) {
-  let effort = 1;
-
-  layout.forEach((layoutRow, rowIdx) => {
-    const idx = layoutRow.findIndex((layoutChar) => layoutChar === char);
-    if (idx !== -1) {
-      effort = Pr(rowIdx);
-    }
-  });
-
-  return effort;
+  return Pr(layout.getRow(char));
 }
 
 export function penaltyFinger(char: string) {
-  let effort = 1;
-
-  layout.forEach((layoutRow) => {
-    const idx = layoutRow.findIndex((layoutChar) => layoutChar === char);
-    if (idx !== -1) {
-      effort = Pf(idx);
-    }
-  });
-
-  return effort;
+  return Pf(layout.getFinger(char));
 }
 
 // 𝑠𝑖=∑(𝑗=hand, row, finger) 𝑓𝑗 * 𝑝𝑗
@@ -199,28 +171,10 @@ export function strokeEffort(triad: string) {
 
 export function handAltStrokeEffort(triad: string): number {
   const [c1, c2, c3] = triad;
-  let c1h, c2h, c3h;
 
-  layout.forEach((layoutRow) => {
-    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c1);
-    if (idx !== -1) {
-      c1h = idx < 5 ? "L" : "R";
-    }
-  });
-
-  layout.forEach((layoutRow) => {
-    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c2);
-    if (idx !== -1) {
-      c2h = idx < 5 ? "L" : "R";
-    }
-  });
-
-  layout.forEach((layoutRow) => {
-    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c3);
-    if (idx !== -1) {
-      c3h = idx < 5 ? "L" : "R";
-    }
-  });
+  const c1h = layout.getHand(c1);
+  const c2h = layout.getHand(c2);
+  const c3h = layout.getHand(c3);
 
   if (c1h == c3h) {
     if (c2h == c3h) {
@@ -235,28 +189,10 @@ export function handAltStrokeEffort(triad: string): number {
 
 export function rowAltStrokeEffort(triad: string): number {
   const [c1, c2, c3] = triad;
-  let [c1r, c2r, c3r] = [-1, -1, -1];
 
-  layout.forEach((layoutRow, rowIdx) => {
-    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c1);
-    if (idx !== -1) {
-      c1r = rowIdx;
-    }
-  });
-
-  layout.forEach((layoutRow, rowIdx) => {
-    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c2);
-    if (idx !== -1) {
-      c2r = rowIdx;
-    }
-  });
-
-  layout.forEach((layoutRow, rowIdx) => {
-    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c3);
-    if (idx !== -1) {
-      c3r = rowIdx;
-    }
-  });
+  const c1r = layout.getRow(c1);
+  const c2r = layout.getRow(c2);
+  const c3r = layout.getRow(c3);
 
   if (c1r == c3r && c2r == c3r) {
     return 0;
@@ -305,29 +241,10 @@ export function rowAltStrokeEffort(triad: string): number {
 
 export function fingerAltStrokeEffort(triad: string): number {
   const [c1, c2, c3] = triad;
-  let [c1f, c2f, c3f] = [-1, -1, -1];
-  const fingerMap = [0, 1, 2, 3, 3, 6, 6, 7, 8, 9, 9, 9, 9, 9];
 
-  layout.forEach((layoutRow) => {
-    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c1);
-    if (idx !== -1) {
-      c1f = fingerMap[idx];
-    }
-  });
-
-  layout.forEach((layoutRow) => {
-    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c2);
-    if (idx !== -1) {
-      c2f = fingerMap[idx];
-    }
-  });
-
-  layout.forEach((layoutRow) => {
-    const idx = layoutRow.findIndex((layoutChar) => layoutChar === c3);
-    if (idx !== -1) {
-      c3f = fingerMap[idx];
-    }
-  });
+  const c1f = layout.getFinger(c1);
+  const c2f = layout.getFinger(c2);
+  const c3f = layout.getFinger(c3);
 
   // 1 < 2 < 3 or 1 > 2 > 3
   if ((c1f < c2f && c2f < c3f) || (c1f > c2f && c2f > c3f)) {
