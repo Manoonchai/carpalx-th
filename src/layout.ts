@@ -29,4 +29,10 @@ export class Layout {
   public get matrix() {
     return LAYOUTS[this.name];
   }
+
+  public getRow(char: string) {
+    return this.matrix.findIndex((layoutRow) => {
+      return layoutRow.findIndex((layoutChar) => layoutChar === char) !== -1;
+    });
+  }
 }

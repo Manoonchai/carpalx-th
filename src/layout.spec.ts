@@ -40,4 +40,30 @@ describe("Layout", () => {
       ]);
     });
   });
+
+  describe("#getRow", () => {
+    let layout: Layout;
+
+    beforeEach(() => {
+      layout = new Layout();
+    });
+
+    it("returns 0 for top row char", () => {
+      expect(layout.getRow("อ")).toEqual(0);
+      expect(layout.getRow("ย")).toEqual(0);
+      expect(layout.getRow("ต")).toEqual(0);
+    });
+
+    it("returns 1 for home row char", () => {
+      expect(layout.getRow("ท")).toEqual(1);
+      expect(layout.getRow("ง")).toEqual(1);
+      expect(layout.getRow("ก")).toEqual(1);
+    });
+
+    it("returns 2 for bottom row char", () => {
+      expect(layout.getRow("บ")).toEqual(2);
+      expect(layout.getRow("ป")).toEqual(2);
+      expect(layout.getRow("ล")).toEqual(2);
+    });
+  });
 });
