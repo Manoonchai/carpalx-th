@@ -313,6 +313,40 @@ export function fingerAltStrokeEffort(triad: string): number {
   throw new Error(`Unhandled case found : ${triad}`);
 }
 
+// Layer Change Effort
+// Added to support Thai language.
+export function layerChangeEffort(triad: string): number {
+  const [c1, c2, c3] = triad;
+
+  const c1s = layout.isShifted(c1);
+  const c2s = layout.isShifted(c2);
+  const c3s = layout.isShifted(c3);
+  const shiftedSum = +c1s + +c2s + +c3s;
+
+  // 0 Shifts
+  if (shiftedSum == 0) {
+    return 0;
+  }
+
+  // 1 Shift, anywhere
+  if (shiftedSum == 1) {
+    return 1;
+  }
+
+  // 2-3 Shifts, monotonic
+  if (shiftedSum == 3 || (shiftedSum == 2 && c2s)) {
+    return 2;
+  }
+
+  // 2 Shifts, non-monotonic (shift-nonshift-shift)
+  if (shiftedSum == 2 && !c2s) {
+    return 3;
+  }
+
+  // impossible!
+  throw new Error(`Unhandled case found : ${triad}`);
+}
+
 // const triads: Triads = {
 //   ครั: 1,
 //   รับ: 2,

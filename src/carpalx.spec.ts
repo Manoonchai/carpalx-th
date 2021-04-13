@@ -2,6 +2,7 @@ import {
   baseEffortKey,
   fingerAltStrokeEffort,
   handAltStrokeEffort,
+  layerChangeEffort,
   penaltyEffortKey,
   penaltyFinger,
   penaltyHand,
@@ -216,5 +217,31 @@ describe("strokeEffort", () => {
       expect(fingerAltStrokeEffort("สาด")).toEqual(7);
       expect(fingerAltStrokeEffort("หอก")).toEqual(7);
     });
+  });
+});
+
+describe("layerChangeEffort", () => {
+  it("returns 0 for triads without shifted keys", () => {
+    expect(layerChangeEffort("ทอน")).toEqual(0);
+    expect(layerChangeEffort("บอด")).toEqual(0);
+    expect(layerChangeEffort("ลอา")).toEqual(0);
+  });
+
+  it("returns 1 for triads with 1 shifted key", () => {
+    expect(layerChangeEffort("ฆ่า")).toEqual(1);
+    expect(layerChangeEffort("เณร")).toEqual(1);
+    expect(layerChangeEffort("กาฬ")).toEqual(1);
+  });
+
+  it("returns 2 for triads with monotonic 2-3 shifted keys", () => {
+    expect(layerChangeEffort("ฟืน")).toEqual(2);
+    expect(layerChangeEffort("พืช")).toEqual(2);
+    expect(layerChangeEffort("โฆษ")).toEqual(2);
+  });
+
+  it("returns 3 for triads non-monotonic 2 shifted keys (shift-nonshift-shift)", () => {
+    expect(layerChangeEffort("ฟาซ")).toEqual(3);
+    expect(layerChangeEffort("ฑัณ")).toEqual(3);
+    expect(layerChangeEffort("ฮาๆ")).toEqual(3);
   });
 });
