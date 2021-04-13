@@ -4,11 +4,10 @@ import { Layout } from "./layout";
 const kb = 0.3555,
   kp = 0.6423,
   ks = 0.4268,
+  kl = 0.4268, // Layer change constant (set as same as stroke path effort for now)
   // ws = [1, 0.3, 0.3],
   wb = [1, 0.367, 0.235];
 // wp = [1, 0.367, 0.235];
-
-// const kShiftMultiplier = 2.0; // Penalty when key is in shifted layout
 
 const [k1, k2, k3] = wb;
 
@@ -22,12 +21,6 @@ const baseEffortMatrix = [
 const baseEffortFallback = 6; // fallback for number row
 
 const layout = new Layout();
-
-// const layoutShifted = [
-//   ["๊", "ฤ", "ๆ", "ญ", "ษ", "ึ", "ฝ", "ซ", "ถ", "ฒ", "ฯ", "ฦ", "ฅ"],
-//   ["๋", "ธ", "ำ", "ณ", "์", "ื", "ผ", "ช", "โ", "ฆ", "ฑ"],
-//   ["ฎ", "ฏ", "ฐ", "ภ", "ั", "ศ", "ฮ", "ฟ", "ฉ", "ฬ"],
-// ];
 
 interface Triads {
   [triad: string]: number;
@@ -51,18 +44,22 @@ export function typingEffort(triads: Triads) {
   return triadEffortSum / triadsCount;
 }
 
-// 𝑒𝑖=𝑘𝑏𝑏𝑖+𝑘𝑝𝑝𝑖+𝑘𝑠𝑠𝑖
+// 𝑒𝑖=𝑘𝑏𝑏𝑖+𝑘𝑝𝑝𝑖+𝑘𝑠𝑠𝑖 + kl*li
 // k𝑏 = base weight (constant)
 // k𝑝 = penalty weight (constant)
 // k𝑠 = stroke path weight (constant)
 // b𝑖 = base effort component
 // p𝑖 = penalty effort component
 // s𝑖 = stroke path effort component
+// Added for Thai language
+// kl = layer change weight (constant)
+// l𝑖 = layer change effort component
 export function triadEffort(triad: string) {
   return (
     kb * baseEffort(triad) +
     kp * penaltyEffort(triad) +
-    ks * strokeEffort(triad)
+    ks * strokeEffort(triad) +
+    kl * layerChangeEffort(triad)
   );
 }
 
