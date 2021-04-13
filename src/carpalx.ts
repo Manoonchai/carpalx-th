@@ -49,6 +49,19 @@ export default class Carpalx {
   // n𝑖 : unique triad count (Triad.value)
   // e𝑖 : triadEffort
   public typingEffort(triads: Triads) {
+    // Filter bad triads
+    Object.keys(triads).forEach((triad) => {
+      if (triad.length !== 3) {
+        delete triads[triad];
+      } else if (
+        this.layout.getColumn(triad[0]) === undefined ||
+        this.layout.getColumn(triad[1]) === undefined ||
+        this.layout.getColumn(triad[2]) === undefined
+      ) {
+        delete triads[triad];
+      }
+    });
+
     const triadsCount = Object.values(triads).reduce((a, b) => a + b);
 
     const triadEffortSum = Object.entries(triads)

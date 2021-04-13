@@ -60,7 +60,7 @@ export class Layout {
     return this.rawRowCache[char];
   }
 
-  public getColumn(char: string) {
+  public getColumn(char: string): number | undefined {
     if (this.columnCache[char]) {
       return this.columnCache[char];
     }
@@ -81,10 +81,10 @@ export class Layout {
   }
 
   public getFinger(char: string) {
-    return FINGER_MAP[this.getColumn(char)];
+    return FINGER_MAP[this.getColumn(char)!];
   }
 
   public getHand(char: string) {
-    return this.getColumn(char) <= 5 ? "L" : "R";
+    return this.getColumn(char)! <= 5 ? "L" : "R";
   }
 }
