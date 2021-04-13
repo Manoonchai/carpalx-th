@@ -213,4 +213,44 @@ describe("Layout", () => {
       expect(layout.getHand("ฅ")).toEqual("R");
     });
   });
+
+  describe("isShifted", () => {
+    let layout: Layout;
+
+    beforeEach(() => {
+      layout = new Layout();
+    });
+
+    it("returns false is in non-shifted layer", () => {
+      expect(layout.isShifted("บ")).toEqual(false);
+      expect(layout.isShifted("ป")).toEqual(false);
+      expect(layout.isShifted("ง")).toEqual(false);
+      expect(layout.isShifted("อ")).toEqual(false);
+      expect(layout.isShifted("ร")).toEqual(false);
+      expect(layout.isShifted("ค")).toEqual(false);
+      expect(layout.isShifted("า")).toEqual(false);
+      expect(layout.isShifted("ม")).toEqual(false);
+      expect(layout.isShifted("ว")).toEqual(false);
+      expect(layout.isShifted("แ")).toEqual(false);
+      expect(layout.isShifted("ใ")).toEqual(false);
+      expect(layout.isShifted("ฌ")).toEqual(false);
+      expect(layout.isShifted("ฃ")).toEqual(false);
+    });
+
+    it("returns true is in shifted layer", () => {
+      expect(layout.isShifted("ฎ")).toEqual(true);
+      expect(layout.isShifted("ฤ")).toEqual(true);
+      expect(layout.isShifted("ๆ")).toEqual(true);
+      expect(layout.isShifted("ญ")).toEqual(true);
+      expect(layout.isShifted("ษ")).toEqual(true);
+      expect(layout.isShifted("ศ")).toEqual(true);
+      expect(layout.isShifted("ผ")).toEqual(true);
+      expect(layout.isShifted("ซ")).toEqual(true);
+      expect(layout.isShifted("ถ")).toEqual(true);
+      expect(layout.isShifted("ฒ")).toEqual(true);
+      expect(layout.isShifted("ฯ")).toEqual(true);
+      expect(layout.isShifted("ฦ")).toEqual(true);
+      expect(layout.isShifted("ฅ")).toEqual(true);
+    });
+  });
 });

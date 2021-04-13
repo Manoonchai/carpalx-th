@@ -33,7 +33,7 @@ const FINGER_MAP = [0, 1, 2, 3, 3, 6, 6, 7, 8, 9, 9, 9, 9, 9];
 
 export class Layout {
   public name: LayoutOptions["name"];
-  private rowCache: { [char: string]: number } = {};
+  private rawRowCache: { [char: string]: number } = {};
   private columnCache: { [char: string]: number } = {};
 
   constructor(options: LayoutOptions = { name: "pattachote" }) {
@@ -45,11 +45,19 @@ export class Layout {
   }
 
   public getRow(char: string) {
-    this.rowCache[char] ||= this.matrix.findIndex((layoutRow) => {
+    return this.getRawRow(char) % 4;
+  }
+
+  public isShifted(char: string) {
+    return this.getRawRow(char) >= 4;
+  }
+
+  private getRawRow(char: string) {
+    this.rawRowCache[char] ||= this.matrix.findIndex((layoutRow) => {
       return layoutRow.findIndex((layoutChar) => layoutChar === char) !== -1;
     });
 
-    return this.rowCache[char] % 4;
+    return this.rawRowCache[char];
   }
 
   public getColumn(char: string) {
