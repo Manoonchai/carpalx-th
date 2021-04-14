@@ -4,6 +4,7 @@ import { Layout } from "./layout";
 import { thai5k } from "../data/thai5k";
 import { wisesight } from "../data/wisesight";
 import { wongnai } from "../data/wongnai";
+import thaisumTestset from "../data/thaisum-testset.json";
 
 const kedmaneeLayout = new Layout({ name: "kedmanee" });
 const kedmaneeCarpalx = new Carpalx({ layout: kedmaneeLayout });
@@ -59,4 +60,19 @@ console.log(
 console.log(
   "Ikbaeb Typing Effort (Wongnai Corpus triads) :",
   ikbaebCarpalx.typingEffort(wongnai)
+);
+
+console.log(
+  "Kedmanee Typing Effort (ThaisumTestset triads) :",
+  kedmaneeCarpalx.typingEffort(thaisumTestset)
+);
+
+console.log(
+  "Pattachote Typing Effort (ThaisumTestset triads) :",
+  pattachoteCarpalx.typingEffort(thaisumTestset)
+);
+
+console.log(
+  "Ikbaeb Typing Effort (ThaisumTestset triads) :",
+  ikbaebCarpalx.typingEffort(thaisumTestset)
 );

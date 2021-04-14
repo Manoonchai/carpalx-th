@@ -27,7 +27,7 @@ const baseEffortMatrix = [
   [2, 2, 2, 2, 3.5, 2, 2, 2, 2, 2], //down row
 ];
 
-interface Triads {
+export interface Triads {
   [triad: string]: number;
 }
 

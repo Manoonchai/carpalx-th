@@ -8,9 +8,11 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "start": "ts-node src/main"
+    "start": "ts-node src/main",
+    "generate-triads": "ts-node src/generate-triads"
   },
   "dependencies": {
+    "csv-parser": "^3.0.0",
     "jest": "^26.6.3",
     "ts-node": "^9.1.1"
   },
