@@ -1,5 +1,7 @@
 # Calpalx (Thai)
 
+[![codecov](https://codecov.io/gh/narze/carpalx-th/branch/main/graph/badge.svg?token=0Y35AhUbcg)](https://codecov.io/gh/narze/carpalx-th)
+
 Keyboard Layout Optimizer for Thai layouts, in TypeScript
 
 ## Why?
