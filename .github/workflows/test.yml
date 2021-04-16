@@ -36,4 +36,7 @@ jobs:
 
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: yarn test
+      - run: yarn test --coverage
+      
+      - name: Codecov
+        uses: codecov/codecov-action@v1.3.2
