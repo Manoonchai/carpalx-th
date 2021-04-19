@@ -33,3 +33,28 @@ function eachCons(str: string, num: number): string[] {
   }
   return res.map((r) => r.join(""));
 }
+
+export function swapKeyPair(arr: string[][]) {
+  const keys: [number, number][] = arr
+    .map((k, i) => k.map((_kk, ii) => [i, ii]))
+    .flat() as [number, number][];
+
+  const arrLength = keys.length;
+  if (arrLength < 2) {
+    return arr;
+  }
+
+  const a = ~~(Math.random() * arrLength);
+  let b = ~~(Math.random() * arrLength);
+
+  while (b == a) {
+    b = ~~(Math.random() * arrLength);
+  }
+
+  const [aa, ab] = keys[a];
+  const [ba, bb] = keys[b];
+
+  [arr[aa][ab], arr[ba][bb]] = [arr[ba][bb], arr[aa][ab]];
+
+  return arr;
+}
