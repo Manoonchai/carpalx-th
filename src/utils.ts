@@ -35,8 +35,9 @@ function eachCons(str: string, num: number): string[] {
 }
 
 export function swapKeyPair(arr: string[][]) {
+  // List [i,j] indices for 2d array
   const keys: [number, number][] = arr
-    .map((k, i) => k.map((_kk, ii) => [i, ii]))
+    .map((a: string[], i) => a.map((_, j) => [i, j]))
     .flat() as [number, number][];
 
   const arrLength = keys.length;
@@ -44,17 +45,19 @@ export function swapKeyPair(arr: string[][]) {
     return arr;
   }
 
+  // Random unique index a & b
   const a = ~~(Math.random() * arrLength);
-  let b = ~~(Math.random() * arrLength);
-
-  while (b == a) {
+  let b;
+  do {
     b = ~~(Math.random() * arrLength);
-  }
+  } while (b == a);
 
-  const [aa, ab] = keys[a];
-  const [ba, bb] = keys[b];
+  // Extract keys
+  const [i, j] = keys[a];
+  const [m, n] = keys[b];
 
-  [arr[aa][ab], arr[ba][bb]] = [arr[ba][bb], arr[aa][ab]];
+  // Swap in place
+  [arr[i][j], arr[m][n]] = [arr[m][n], arr[i][j]];
 
   return arr;
 }
