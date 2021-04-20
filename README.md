@@ -39,8 +39,18 @@ Ikbaeb Typing Effort (Thaisum triads) : 2.9977849658768037
 
 - [x] Thai layout support, with Kedmanee & Pattachote
 - [x] Shifted keys typing effort model
+- [ ] Generate layout from randomized data
+  - [x] Greedy search for best effort
+  - [ ] Simulated annealing
 - [ ] Adjustable parameters (eg. Dominant hand, pinky penalty weight, etc.)
 - [ ] Ortholinear-layout support (eg. Planck, Ergodox)
+
+## Triads Datasets
+
+- [Thai National Corpus](http://www.arts.chula.ac.th/ling/tnc/searchtnc/)
+- [Wongnai-corpus](https://github.com/wongnai/wongnai-corpus)
+- [PyThaiNLP's Wisesight Sentiment Corpus](https://github.com/PyThaiNLP/wisesight-sentiment)
+- [ThaiSum](https://github.com/nakhunchumpolsathien/ThaiSum)
 
 ## References
 
