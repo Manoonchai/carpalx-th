@@ -1,6 +1,6 @@
 import Carpalx from "./carpalx";
 import { Triads } from "./carpalx";
-import { Layout } from "./layout";
+import { ILayout, Layout } from "./layout";
 
 import { thai5k } from "../data/thai5k";
 import { wisesight } from "../data/wisesight";
@@ -9,7 +9,22 @@ import thaisumTestset from "../data/thaisum-testset.json";
 import thaisum from "../data/thaisum-full.json";
 import fs from "fs";
 
-let currentLayout = new Layout({ name: "kedmanee" });
+const T = true,
+  F = false;
+
+// prettier-ignore
+const lockedKeys: ILayout<boolean> = [
+  [T,T,T,T,T,T,T,T,T,T,F,F],
+  [F,F,F,F,F,F,F,F,F,F,F,F,F],
+  [F,F,F,F,F,F,F,F,F,F,F],
+  [F,F,F,F,F,F,F,F,F,F],
+  [F,F,F,F,F,F,F,F,F,F,F,F],
+  [F,F,F,F,F,F,F,F,F,F,F,F,F],
+  [F,F,F,F,F,F,F,F,F,F,F],
+  [F,F,F,F,F,F,F,F,F,F],
+]
+
+let currentLayout = new Layout({ name: "custom", lockedKeys });
 
 let pass = 1;
 
@@ -37,27 +52,27 @@ while (true) {
   const currentCarpalx = new Carpalx({ layout: currentLayout });
 
   console.log(
-    "Kedmanee Typing Effort (Thai5k triads) :",
+    "Typing Effort (Thai5k triads) :",
     (currentThai5kEffort = currentCarpalx.typingEffort(thai5k))
   );
 
   console.log(
-    "Kedmanee Typing Effort (Wisesight Sentiment triads) :",
+    "Typing Effort (Wisesight Sentiment triads) :",
     (currentWisesightEffort = currentCarpalx.typingEffort(wisesight))
   );
 
   console.log(
-    "Kedmanee Typing Effort (Wongnai Corpus triads) :",
+    "Typing Effort (Wongnai Corpus triads) :",
     (currentWongnaiEffort = currentCarpalx.typingEffort(wongnai))
   );
 
   console.log(
-    "Kedmanee Typing Effort (ThaisumTestset triads) :",
+    "Typing Effort (ThaisumTestset triads) :",
     (currentThaisumTestsetEffort = currentCarpalx.typingEffort(thaisumTestset))
   );
 
   console.log(
-    "Kedmanee Typing Effort (Thaisum triads) :",
+    "Typing Effort (Thaisum triads) :",
     (currentThaisumEffort = currentCarpalx.typingEffort(thaisum as Triads))
   );
 
@@ -90,7 +105,7 @@ while (true) {
     console.log(currentLayout.matrix);
 
     fs.appendFileSync(
-      "./best.txt",
+      "./out/best-lock-numbers.txt",
       `${pass} (Effort: ${currentSumEffort})\n\n${currentLayout.matrix
         .map((l) => JSON.stringify(l))
         .join("\n")}\n==========================\n`,

@@ -34,23 +34,31 @@ function eachCons(str: string, num: number): string[] {
   return res.map((r) => r.join(""));
 }
 
-export function swapKeyPair(arr: string[][]) {
+export function swapKeyPair(arr: string[][], lockedKeys: boolean[][] = []) {
   // List [i,j] indices for 2d array
   const keys: [number, number][] = arr
     .map((a: string[], i) => a.map((_, j) => [i, j]))
     .flat() as [number, number][];
 
   const arrLength = keys.length;
-  if (arrLength < 2) {
+  const lockedKeysCount = lockedKeys.flat().filter((v) => v).length;
+
+  if (arrLength - lockedKeysCount < 2) {
     return arr;
   }
 
   // Random unique index a & b
-  const a = ~~(Math.random() * arrLength);
-  let b;
+  // Re-random if found locked keys or b = a
+  let a, b, x, y;
+  do {
+    a = ~~(Math.random() * arrLength);
+    [x, y] = keys[a];
+  } while (lockedKeys[x] && lockedKeys[x][y]);
+
   do {
     b = ~~(Math.random() * arrLength);
-  } while (b == a);
+    [x, y] = keys[b];
+  } while (b == a || (lockedKeys[x] && lockedKeys[x][y]));
 
   // Extract keys
   const [i, j] = keys[a];

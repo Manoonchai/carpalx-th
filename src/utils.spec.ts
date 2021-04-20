@@ -33,4 +33,38 @@ describe("swapKeyPair", () => {
     expect(swapKeyPair([["a", "b"], ["c"]])[0].length).toEqual(2);
     expect(swapKeyPair([["a", "b"], ["c"]])[1].length).toEqual(1);
   });
+
+  it("does not swap locked keys", () => {
+    // Element count - locked keys < 2
+    expect(swapKeyPair([["a", "b"]], [[true, true]])).toEqual([["a", "b"]]);
+    expect(swapKeyPair([["a"], ["b"]], [[true], [true]])).toEqual([
+      ["a"],
+      ["b"],
+    ]);
+
+    // Element count - locked keys = 2
+    expect(swapKeyPair([["a", "b"], ["c"]], [[true, false], [false]])).toEqual([
+      ["a", "c"],
+      ["b"],
+    ]);
+    expect(swapKeyPair([["a", "b"], ["c"]], [[false, true], [false]])).toEqual([
+      ["c", "b"],
+      ["a"],
+    ]);
+    expect(
+      swapKeyPair(
+        [
+          ["a", "b"],
+          ["c", "d"],
+        ],
+        [
+          [false, true],
+          [true, false],
+        ]
+      )
+    ).toEqual([
+      ["d", "b"],
+      ["c", "a"],
+    ]);
+  });
 });
