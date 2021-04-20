@@ -1,4 +1,4 @@
-import Carpalx from "./carpalx";
+import Carpalx, { baseEffortMatrix } from "./carpalx";
 
 let carpalx: Carpalx;
 
@@ -22,28 +22,28 @@ describe("baseEffortKey", () => {
       expect(carpalx.baseEffortKey("ข")).toEqual(2);
     });
 
-    it("returns [2, 2, 2, 2, 2.5, 3, 2, 2, 2, 2, 2.5, 4, 6] on upper row keys", () => {
+    it("returns base effort mapping on upper row keys", () => {
       const efforts = "็ตยอร่ดมวแใฌฃ"
         .split("")
         .map((k) => carpalx.baseEffortKey(k));
 
-      expect(efforts).toEqual([2, 2, 2, 2, 2.5, 3, 2, 2, 2, 2, 2.5, 4, 6]);
+      expect(efforts).toEqual(baseEffortMatrix[1]);
     });
 
-    it("returns [2, 2, 2, 2, 3.5, 2, 2, 2, 2, 2], on lower row keys", () => {
+    it("returns base effort mapping on lower row keys", () => {
       const efforts = "บปลหิคสะจพ"
         .split("")
         .map((k) => carpalx.baseEffortKey(k));
 
-      expect(efforts).toEqual([2, 2, 2, 2, 3.5, 2, 2, 2, 2, 2]);
+      expect(efforts).toEqual(baseEffortMatrix[2]);
     });
 
-    it("returns [4, 4, 4, 4, 5, 6, 4, 4, 4, 4, 5, 6, 7], on number row keys", () => {
+    it("returns base effort mapping on number row keys", () => {
       const efforts = "1๒๓๔๕ู๗๘๙๐๑๖"
         .split("")
         .map((k) => carpalx.baseEffortKey(k));
 
-      expect(efforts).toEqual([4, 4, 4, 4, 5, 6, 4, 4, 4, 4, 5, 6]);
+      expect(efforts).toEqual(baseEffortMatrix[3]);
     });
 
     it("raises error if not found", () => {

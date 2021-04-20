@@ -20,7 +20,7 @@ const fh = 1,
 
 const [k1, k2, k3] = wb;
 
-const baseEffortMatrix = [
+export const baseEffortMatrix = [
   // [4, 4, 4, 4, 5, 6, 4, 4, 4, 4, 5, 6], // number row
   [6, 6, 6, 6, 8, 10, 6, 6, 6, 6, 8, 10], // number row (larger)
   [2, 2, 2, 2, 2.5, 3, 2, 2, 2, 2, 2.5, 4, 6], //row 1
