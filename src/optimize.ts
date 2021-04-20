@@ -1,13 +1,18 @@
-import Carpalx from "./carpalx";
-import { Triads } from "./carpalx";
-import { ILayout, Layout } from "./layout";
+import fs from "fs";
+
+import Carpalx, { Triads } from "./carpalx";
+import { ILayout, Layout, LayoutOptions } from "./layout";
 
 import { thai5k } from "../data/thai5k";
 import { wisesight } from "../data/wisesight";
 import { wongnai } from "../data/wongnai";
 import thaisumTestset from "../data/thaisum-testset.json";
 import thaisum from "../data/thaisum-full.json";
-import fs from "fs";
+
+const layoutName = (process.argv[2] as LayoutOptions["name"]) || "kedmanee";
+const outputFile = process.argv[3] || "out/result.txt";
+
+console.log("Arguments: ", { outputFile, layoutName });
 
 const T = true,
   F = false;
@@ -24,7 +29,7 @@ const lockedKeys: ILayout<boolean> = [
   [F,F,F,F,F,F,F,F,F,F],
 ]
 
-let currentLayout = new Layout({ name: "custom", lockedKeys });
+let currentLayout = new Layout({ name: layoutName, lockedKeys });
 
 let pass = 1;
 
@@ -105,7 +110,7 @@ while (true) {
     console.log(currentLayout.matrix);
 
     fs.appendFileSync(
-      "./out/best-lock-numbers.txt",
+      outputFile,
       `${pass} (Effort: ${currentSumEffort})\n\n${currentLayout.matrix
         .map((l) => JSON.stringify(l))
         .join("\n")}\n==========================\n`,

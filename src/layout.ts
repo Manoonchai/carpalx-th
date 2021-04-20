@@ -1,5 +1,5 @@
 import { swapKeyPair } from "./utils";
-interface LayoutOptions {
+export interface LayoutOptions {
   name: "pattachote" | "kedmanee" | "ikbaeb" | "custom";
   lockedKeys?: boolean[][];
 }
