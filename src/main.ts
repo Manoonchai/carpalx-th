@@ -22,85 +22,110 @@ console.log("Carpalx Typing Effort (Lower is better)");
 
 hr();
 
+let kedmaneeEffort = 0,
+  pattachoteEffort = 0,
+  ikbaebEffort = 0,
+  effort = 0;
+
 console.log(
   "Kedmanee Typing Effort (Thai5k triads) :",
-  kedmaneeCarpalx.typingEffort(thai5k)
+  (effort = kedmaneeCarpalx.typingEffort(thai5k))
 );
+kedmaneeEffort += effort;
 
 console.log(
   "Pattachote Typing Effort (Thai5k triads) :",
-  pattachoteCarpalx.typingEffort(thai5k)
+  (effort = pattachoteCarpalx.typingEffort(thai5k))
 );
+pattachoteEffort += effort;
 
 console.log(
   "Ikbaeb Typing Effort (Thai5k triads) :",
-  ikbaebCarpalx.typingEffort(thai5k)
+  (effort = ikbaebCarpalx.typingEffort(thai5k))
 );
+ikbaebEffort += effort;
 
 hr();
 
 console.log(
   "Kedmanee Typing Effort (Wisesight Sentiment triads) :",
-  kedmaneeCarpalx.typingEffort(wisesight)
+  (effort = kedmaneeCarpalx.typingEffort(wisesight))
 );
+kedmaneeEffort += effort;
 
 console.log(
   "Pattachote Typing Effort (Wisesight Sentiment triads) :",
-  pattachoteCarpalx.typingEffort(wisesight)
+  (effort = pattachoteCarpalx.typingEffort(wisesight))
 );
+pattachoteEffort += effort;
 
 console.log(
   "Ikbaeb Typing Effort (Wisesight Sentiment triads) :",
-  ikbaebCarpalx.typingEffort(wisesight)
+  (effort = ikbaebCarpalx.typingEffort(wisesight))
 );
+ikbaebEffort += effort;
 
 hr();
 
 console.log(
   "Kedmanee Typing Effort (Wongnai Corpus triads) :",
-  kedmaneeCarpalx.typingEffort(wongnai)
+  (effort = kedmaneeCarpalx.typingEffort(wongnai))
 );
+kedmaneeEffort += effort;
 
 console.log(
   "Pattachote Typing Effort (Wongnai Corpus triads) :",
-  pattachoteCarpalx.typingEffort(wongnai)
+  (effort = pattachoteCarpalx.typingEffort(wongnai))
 );
+pattachoteEffort += effort;
 
 console.log(
   "Ikbaeb Typing Effort (Wongnai Corpus triads) :",
-  ikbaebCarpalx.typingEffort(wongnai)
+  (effort = ikbaebCarpalx.typingEffort(wongnai))
 );
+ikbaebEffort += effort;
 
 hr();
 
 console.log(
   "Kedmanee Typing Effort (ThaisumTestset triads) :",
-  kedmaneeCarpalx.typingEffort(thaisumTestset)
+  (effort = kedmaneeCarpalx.typingEffort(thaisumTestset))
 );
+kedmaneeEffort += effort;
 
 console.log(
   "Pattachote Typing Effort (ThaisumTestset triads) :",
-  pattachoteCarpalx.typingEffort(thaisumTestset)
+  (effort = pattachoteCarpalx.typingEffort(thaisumTestset))
 );
+pattachoteEffort += effort;
 
 console.log(
   "Ikbaeb Typing Effort (ThaisumTestset triads) :",
-  ikbaebCarpalx.typingEffort(thaisumTestset)
+  (effort = ikbaebCarpalx.typingEffort(thaisumTestset))
 );
+ikbaebEffort += effort;
 
 hr();
 
 console.log(
   "Kedmanee Typing Effort (Thaisum triads) :",
-  kedmaneeCarpalx.typingEffort(thaisum as Triads)
+  (effort = kedmaneeCarpalx.typingEffort(thaisum as Triads))
 );
+kedmaneeEffort += effort;
 
 console.log(
   "Pattachote Typing Effort (Thaisum triads) :",
-  pattachoteCarpalx.typingEffort(thaisum as Triads)
+  (effort = pattachoteCarpalx.typingEffort(thaisum as Triads))
 );
+pattachoteEffort += effort;
 
 console.log(
   "Ikbaeb Typing Effort (Thaisum triads) :",
-  ikbaebCarpalx.typingEffort(thaisum as Triads)
+  (effort = ikbaebCarpalx.typingEffort(thaisum as Triads))
 );
+ikbaebEffort += effort;
+
+hr();
+
+console.info("SUMMARY");
+console.info({ kedmaneeEffort, pattachoteEffort, ikbaebEffort });
