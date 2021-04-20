@@ -4,7 +4,7 @@ import { Layout } from "./layout";
 const kb = 0.3555,
   kp = 0.6423,
   ks = 0.4268,
-  kl = 0.4268, // Layer change constant (set as same as stroke path effort for now)
+  kl = 1.2846, // Layer change constant (largest)
   // ws = [1, 0.3, 0.3],
   wb = [1, 0.367, 0.235];
 // wp = [1, 0.367, 0.235];
@@ -21,7 +21,8 @@ const fh = 1,
 const [k1, k2, k3] = wb;
 
 const baseEffortMatrix = [
-  [4, 4, 4, 4, 5, 6, 4, 4, 4, 4, 5, 6], // number row
+  // [4, 4, 4, 4, 5, 6, 4, 4, 4, 4, 5, 6], // number row
+  [6, 6, 6, 6, 8, 10, 6, 6, 6, 6, 8, 10], // number row (larger)
   [2, 2, 2, 2, 2.5, 3, 2, 2, 2, 2, 2.5, 4, 6], //row 1
   [0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 2], //row 2 base
   [2, 2, 2, 2, 3.5, 2, 2, 2, 2, 2], //down row
