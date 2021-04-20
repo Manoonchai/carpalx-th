@@ -1,3 +1,4 @@
+import { swapKeyPair } from "./utils";
 interface LayoutOptions {
   name: "pattachote" | "kedmanee" | "ikbaeb";
 }
@@ -44,15 +45,32 @@ const FINGER_MAP = [0, 1, 2, 3, 3, 6, 6, 7, 8, 9, 9, 9, 9, 9];
 
 export class Layout {
   public name: LayoutOptions["name"];
+  private currentLayout: string[][];
   private rawRowCache: { [char: string]: number } = {};
   private columnCache: { [char: string]: number } = {};
 
   constructor(options: LayoutOptions = { name: "pattachote" }) {
     this.name = options.name;
+    this.currentLayout = LAYOUTS[this.name];
   }
 
   public get matrix() {
-    return LAYOUTS[this.name];
+    return this.currentLayout;
+  }
+
+  public set matrix(layout: string[][]) {
+    this.clearCache();
+    this.currentLayout = layout;
+  }
+
+  public clearCache() {
+    this.rawRowCache = {};
+    this.columnCache = {};
+  }
+
+  public swapKeyPairForLayout() {
+    this.currentLayout = swapKeyPair(this.currentLayout);
+    this.clearCache();
   }
 
   public getRow(char: string) {
