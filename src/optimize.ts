@@ -11,7 +11,7 @@ import thaisum from "../data/thaisum-full.json";
 
 const layoutName = (process.argv[2] as LayoutOptions["name"]) || "kedmanee";
 const outputFile = process.argv[3] || "out/result.txt";
-const noLock = process.argv[4].toLowerCase() == "nolock";
+const noLock = (process.argv[4] || "").toLowerCase() == "nolock";
 
 console.log("Arguments: ", { outputFile, layoutName, noLock });
 
