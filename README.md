@@ -41,7 +41,7 @@ Ikbaeb Typing Effort (Thaisum triads) : 2.9977849658768037
 - [x] Shifted keys typing effort model
 - [ ] Generate layout from randomized data
   - [x] Greedy search for best effort
-  - [ ] Locked keys (No swapping)
+  - [x] Locked keys (No swapping)
   - [ ] Simulated annealing
 - [ ] Adjustable parameters (eg. Dominant hand, pinky penalty weight, etc.)
 - [ ] Ortholinear-layout support (eg. Planck, Ergodox)
