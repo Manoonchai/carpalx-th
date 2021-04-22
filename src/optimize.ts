@@ -1,9 +1,9 @@
 import fs from "fs";
 
-import Carpalx, { Triads } from "./carpalx";
+import Carpalx from "./carpalx";
 import { ILayout, Layout, LayoutOptions } from "./layout";
 
-import { thai5k } from "../data/thai5k";
+import tnc5k from "../data/thai5k-freq.json";
 import { wisesight } from "../data/wisesight";
 import { wongnai } from "../data/wongnai";
 import thaisumTestset from "../data/thaisum-testset.json";
@@ -61,8 +61,8 @@ while (true) {
   const currentCarpalx = new Carpalx({ layout: currentLayout });
 
   console.log(
-    "Typing Effort (Thai5k triads) :",
-    (currentThai5kEffort = currentCarpalx.typingEffort(thai5k))
+    "Typing Effort (TNC 5000 triads) :",
+    (currentThai5kEffort = currentCarpalx.typingEffort(tnc5k))
   );
 
   console.log(
@@ -115,7 +115,9 @@ while (true) {
 
     fs.appendFileSync(
       outputFile,
-      `${pass} (Effort: ${currentSumEffort})\n\n${currentLayout.matrix
+      `${pass} (Effort: ${currentSumEffort}, Diff: ${
+        currentSumEffort - baseSumEffort
+      })\n\n${currentLayout.matrix
         .map((l) => JSON.stringify(l))
         .join("\n")}\n==========================\n`,
       "utf-8" //
