@@ -1,6 +1,6 @@
 import fs from "fs";
 
-import Carpalx from "./carpalx";
+import Carpalx, { Triads } from "./carpalx";
 import { ILayout, Layout, LayoutOptions } from "./layout";
 
 import tnc5k from "../data/thai5k-freq.json";
