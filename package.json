@@ -10,7 +10,8 @@
     "test": "jest",
     "start": "ts-node src/main",
     "optimize": "ts-node src/optimize",
-    "generate-triads": "ts-node src/generate-triads"
+    "generate-triads": "ts-node src/generate-triads",
+    "generate-tnc": "ts-node src/generate-tnc"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",

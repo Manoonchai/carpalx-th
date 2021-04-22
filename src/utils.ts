@@ -13,7 +13,7 @@ export function extractTriads(triads: Triads = {}, input: string): void {
   });
 }
 
-function eachCons(str: string, num: number): string[] {
+export function eachCons(str: string, num: number): string[] {
   let res = [],
     temp = [];
   let start = 0,
