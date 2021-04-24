@@ -9,6 +9,8 @@ Keyboard Layout Optimizer for Thai layouts, in TypeScript
 [Carpalx](http://mkweb.bcgsc.ca/carpalx) does not support Thai language, which has around 60+ unique alphabets and without capitalized letters.
 So this is a Thai version of Carpalx, and also the extension which introduce typing effort model for shifted keys as well.
 
+Ultimately, I will also use this to create [my own Thai keyboard layout](https://github.com/narze/manoonchai).
+
 ## Result
 
 ```plaintext
