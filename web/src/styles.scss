@@ -60,6 +60,7 @@ $keyboard-spacing: 16px;
     border-radius: $key-radius $key-radius 0 0;
     grid-row-start: 9;
     margin-bottom: $key-gutter / 4;
+    font-size: 1.4em;
   }
   &.is-arrow-left {
     grid-row-start: 10;
@@ -80,9 +81,11 @@ $keyboard-spacing: 16px;
   &.is-capslock {
     grid-column-end: span 7;
   }
-  &.is-command,
-  &.is-shift-left {
+  &.is-command {
     grid-column-end: span 5;
+  }
+  &.is-shift-left {
+    grid-column-end: span 9;
   }
   &.is-enter {
     grid-column-end: span 7;
