@@ -12,7 +12,7 @@
     try {
       data = JSON.parse(line.replaceAll('\'"\'', '"\\\""'))
     } catch (e) {
-      return []
+      return ["","","","","","","","","","","","","",""]
     }
     return data
   })
