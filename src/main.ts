@@ -16,6 +16,9 @@ const pattachoteCarpalx = new Carpalx({ layout: pattachoteLayout })
 const ikbaebLayout = new Layout({ name: "ikbaeb" })
 const ikbaebCarpalx = new Carpalx({ layout: ikbaebLayout })
 
+const manoonchaiLayout = new Layout({ name: "manoonchai" })
+const manoonchaiCarpalx = new Carpalx({ layout: manoonchaiLayout })
+
 const hr = () => console.log("========================================")
 
 console.log("Carpalx Typing Effort (Lower is better)")
@@ -25,6 +28,7 @@ hr()
 let kedmaneeEffort = 0,
   pattachoteEffort = 0,
   ikbaebEffort = 0,
+  manoonchaiEffort = 0,
   effort = 0
 
 console.log(
@@ -44,6 +48,12 @@ console.log(
   (effort = ikbaebCarpalx.typingEffort(thai5k))
 )
 ikbaebEffort += effort
+
+console.log(
+  "Manoonchai Typing Effort (Thai5k-freq triads) :",
+  (effort = manoonchaiCarpalx.typingEffort(thai5k))
+)
+manoonchaiEffort += effort
 
 hr()
 
@@ -65,6 +75,12 @@ console.log(
 )
 ikbaebEffort += effort
 
+console.log(
+  "Manoonchai Typing Effort (Wisesight Sentiment triads) :",
+  (effort = manoonchaiCarpalx.typingEffort(wisesight))
+)
+manoonchaiEffort += effort
+
 hr()
 
 console.log(
@@ -84,6 +100,12 @@ console.log(
   (effort = ikbaebCarpalx.typingEffort(wongnai))
 )
 ikbaebEffort += effort
+
+console.log(
+  "Manoonchai Typing Effort (Wongnai Corpus triads) :",
+  (effort = manoonchaiCarpalx.typingEffort(wongnai))
+)
+manoonchaiEffort += effort
 
 hr()
 
@@ -105,6 +127,12 @@ console.log(
 )
 ikbaebEffort += effort
 
+console.log(
+  "Manoonchai Typing Effort (ThaisumTestset triads) :",
+  (effort = manoonchaiCarpalx.typingEffort(thaisumTestset))
+)
+manoonchaiEffort += effort
+
 hr()
 
 console.log(
@@ -125,7 +153,18 @@ console.log(
 )
 ikbaebEffort += effort
 
+console.log(
+  "Manoonchai Typing Effort (Thaisum triads) :",
+  (effort = manoonchaiCarpalx.typingEffort(thaisum as Triads))
+)
+manoonchaiEffort += effort
+
 hr()
 
 console.info("SUMMARY")
-console.info({ kedmaneeEffort, pattachoteEffort, ikbaebEffort })
+console.info({
+  kedmaneeEffort,
+  pattachoteEffort,
+  ikbaebEffort,
+  manoonchaiEffort,
+})

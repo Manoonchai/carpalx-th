@@ -1,12 +1,12 @@
-import { swapKeyPair } from "./utils";
+import { swapKeyPair } from "./utils"
 export interface LayoutOptions {
-  name: "pattachote" | "kedmanee" | "ikbaeb" | "custom";
-  lockedKeys?: boolean[][];
+  name: "pattachote" | "kedmanee" | "ikbaeb" | "custom" | "manoonchai"
+  lockedKeys?: boolean[][]
 }
 
 type ILayoutMatrix = {
-  [name in LayoutOptions["name"]]: ILayout<string>;
-};
+  [name in LayoutOptions["name"]]: ILayout<string>
+}
 
 // prettier-ignore
 export type ILayout<T> = [
@@ -62,86 +62,97 @@ const LAYOUTS: ILayoutMatrix = {
     ["ฤ", "ฆ", "ฏ", "โ", "ฌ", "็", "๋", "ษ", "ศ", "ซ", "."],
     ["ข", "ช", "ฉ", "ฮ", "ึ", "์", "?", "ฒ", "ฬ", "ู"],
   ],
-};
+  // v0.1
+  manoonchai: [
+    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="],
+    ["ู", "พ", "ง", "ส", "ต", "ค", "ั", "อ", "บ", "ป", "็", "ๆ", "ฐ"],
+    ["ว", "ก", "น", "ร", "ย", "เ", "่", "า", "ม", "ี", "ะ"],
+    ["ท", "ใ", "ห", "ล", "ช", "ไ", "้", "ด", "ุ", "์"],
+    ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+"],
+    ["ฯ", "ฏ", "ษ", "ศ", "ซ", "๊", "โ", "ฬ", "ภ", "ฮ", "ฒ", "ฤ", "ฑ"],
+    ["ธ", "ข", "แ", "ญ", "จ", "ถ", "ิ", "ื", "ำ", "ึ", "๋"],
+    ["ฆ", "ฌ", "ฉ", "ผ", "ฝ", "฿", "ณ", "ฟ", "ฎ", "?"],
+  ],
+}
 
-const FINGER_MAP = [0, 1, 2, 3, 3, 6, 6, 7, 8, 9, 9, 9, 9, 9];
+const FINGER_MAP = [0, 1, 2, 3, 3, 6, 6, 7, 8, 9, 9, 9, 9, 9]
 
 export class Layout {
-  public name: LayoutOptions["name"];
-  public lockedKeys: ILayout<boolean>;
-  private currentLayout: ILayout<string>;
-  private rawRowCache: { [char: string]: number } = {};
-  private columnCache: { [char: string]: number } = {};
+  public name: LayoutOptions["name"]
+  public lockedKeys: ILayout<boolean>
+  private currentLayout: ILayout<string>
+  private rawRowCache: { [char: string]: number } = {}
+  private columnCache: { [char: string]: number } = {}
 
   constructor(options: LayoutOptions = { name: "pattachote" }) {
-    this.name = options.name;
-    this.currentLayout = LAYOUTS[this.name];
-    this.lockedKeys = (options.lockedKeys || []) as ILayout<boolean>;
+    this.name = options.name
+    this.currentLayout = LAYOUTS[this.name]
+    this.lockedKeys = (options.lockedKeys || []) as ILayout<boolean>
   }
 
   public get matrix() {
-    return this.currentLayout;
+    return this.currentLayout
   }
 
   public set matrix(layout: ILayout<string>) {
-    this.clearCache();
-    this.currentLayout = layout;
+    this.clearCache()
+    this.currentLayout = layout
   }
 
   public clearCache() {
-    this.rawRowCache = {};
-    this.columnCache = {};
+    this.rawRowCache = {}
+    this.columnCache = {}
   }
 
   public swapKeyPairForLayout() {
     this.currentLayout = swapKeyPair(
       this.currentLayout,
       this.lockedKeys
-    ) as ILayout<string>;
-    this.clearCache();
+    ) as ILayout<string>
+    this.clearCache()
   }
 
   public getRow(char: string) {
-    return this.getRawRow(char) % 4;
+    return this.getRawRow(char) % 4
   }
 
   public isShifted(char: string) {
-    return this.getRawRow(char) >= 4;
+    return this.getRawRow(char) >= 4
   }
 
   private getRawRow(char: string) {
     this.rawRowCache[char] ||= this.matrix.findIndex((layoutRow) => {
-      return layoutRow.findIndex((layoutChar) => layoutChar === char) !== -1;
-    });
+      return layoutRow.findIndex((layoutChar) => layoutChar === char) !== -1
+    })
 
-    return this.rawRowCache[char];
+    return this.rawRowCache[char]
   }
 
   public getColumn(char: string): number | undefined {
     if (this.columnCache[char]) {
-      return this.columnCache[char];
+      return this.columnCache[char]
     }
 
     this.matrix.every((layoutRow) => {
-      const idx = layoutRow.findIndex((layoutChar) => layoutChar === char);
+      const idx = layoutRow.findIndex((layoutChar) => layoutChar === char)
 
       if (idx !== -1) {
-        this.columnCache[char] = idx;
+        this.columnCache[char] = idx
 
-        return false;
+        return false
       }
 
-      return true;
-    });
+      return true
+    })
 
-    return this.columnCache[char];
+    return this.columnCache[char]
   }
 
   public getFinger(char: string) {
-    return FINGER_MAP[this.getColumn(char)!];
+    return FINGER_MAP[this.getColumn(char)!]
   }
 
   public getHand(char: string) {
-    return this.getColumn(char)! <= 5 ? "L" : "R";
+    return this.getColumn(char)! <= 5 ? "L" : "R"
   }
 }
