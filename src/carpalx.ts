@@ -4,7 +4,7 @@ import { Layout } from "./layout";
 const kb = 0.3555,
   kp = 0.6423,
   ks = 0.4268,
-  kl = 0.4268, // Layer change constant (set as same as stroke path effort for now)
+  kl = 1.2846, // Layer change constant (largest)
   // ws = [1, 0.3, 0.3],
   wb = [1, 0.367, 0.235];
 // wp = [1, 0.367, 0.235];
@@ -20,11 +20,12 @@ const fh = 1,
 
 const [k1, k2, k3] = wb;
 
-const baseEffortMatrix = [
-  [4, 4, 4, 4, 5, 6, 4, 4, 4, 4, 5, 6], // number row
+export const baseEffortMatrix = [
+  // [4, 4, 4, 4, 5, 6, 4, 4, 4, 4, 5, 6], // number row
+  [6, 6, 6, 6, 8, 10, 6, 6, 6, 6, 8, 10], // number row (larger)
   [2, 2, 2, 2, 2.5, 3, 2, 2, 2, 2, 2.5, 4, 6], //row 1
   [0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 2], //row 2 base
-  [2, 2, 2, 2, 3.5, 2, 2, 2, 2, 2], //down row
+  [2, 2, 2, 1, 3.5, 2, 1, 2, 2, 2], //down row
 ];
 
 export interface Triads {
@@ -197,6 +198,11 @@ export default class Carpalx {
     const c2h = this.layout.getHand(c2);
     const c3h = this.layout.getHand(c3);
 
+    // Fixme
+    if (c3 === " ") {
+      return c1h == c2h ? 1 : 0;
+    }
+
     if (c1h == c3h) {
       if (c2h == c3h) {
         return 2;
@@ -213,7 +219,7 @@ export default class Carpalx {
 
     const c1r = this.layout.getRow(c1);
     const c2r = this.layout.getRow(c2);
-    const c3r = this.layout.getRow(c3);
+    const c3r = c3 == " " ? c2r : this.layout.getRow(c3);
 
     if (c1r == c3r && c2r == c3r) {
       return 0;
@@ -266,6 +272,11 @@ export default class Carpalx {
     const c1f = this.layout.getFinger(c1);
     const c2f = this.layout.getFinger(c2);
     const c3f = this.layout.getFinger(c3);
+
+    // Duets
+    if (c3 === " ") {
+      return c1f == c2f ? 1 : 0;
+    }
 
     // 1 < 2 < 3 or 1 > 2 > 3
     if ((c1f < c2f && c2f < c3f) || (c1f > c2f && c2f > c3f)) {
@@ -343,6 +354,12 @@ export default class Carpalx {
     const c1s = this.layout.isShifted(c1);
     const c2s = this.layout.isShifted(c2);
     const c3s = this.layout.isShifted(c3);
+
+    // Duets
+    if (c3 === " ") {
+      return c1s || c2s ? 1 : 0;
+    }
+
     const shiftedSum = +c1s + +c2s + +c3s;
 
     // 0 Shifts

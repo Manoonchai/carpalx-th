@@ -14,33 +14,51 @@ So this is a Thai version of Carpalx, and also the extension which introduce typ
 ```plaintext
 Carpalx Typing Effort (Lower is better)
 ========================================
-Kedmanee Typing Effort (Thai5k triads) : 4.076513366676074
-Pattachote Typing Effort (Thai5k triads) : 3.356498152381288
-Ikbaeb Typing Effort (Thai5k triads) : 2.9105104444648116
+Kedmanee Typing Effort (Thai5k triads) : 4.521230008425675
+Pattachote Typing Effort (Thai5k triads) : 3.6484480097588947
+Ikbaeb Typing Effort (Thai5k triads) : 3.1517306059437047
 ========================================
-Kedmanee Typing Effort (Wisesight Sentiment triads) : 4.086891294991928
-Pattachote Typing Effort (Wisesight Sentiment triads) : 3.319388410270449
-Ikbaeb Typing Effort (Wisesight Sentiment triads) : 3.0730987480917435
+Kedmanee Typing Effort (Wisesight Sentiment triads) : 4.471218614474043
+Pattachote Typing Effort (Wisesight Sentiment triads) : 3.60479984531367
+Ikbaeb Typing Effort (Wisesight Sentiment triads) : 3.3130963771643605
 ========================================
-Kedmanee Typing Effort (Wongnai Corpus triads) : 3.9049700947722217
-Pattachote Typing Effort (Wongnai Corpus triads) : 3.23248660685021
-Ikbaeb Typing Effort (Wongnai Corpus triads) : 2.9628737674961156
+Kedmanee Typing Effort (Wongnai Corpus triads) : 4.238078555193414
+Pattachote Typing Effort (Wongnai Corpus triads) : 3.508272809489892
+Ikbaeb Typing Effort (Wongnai Corpus triads) : 3.2354116252199523
 ========================================
-Kedmanee Typing Effort (Thaisum Testset triads) : 4.173794748762248
-Pattachote Typing Effort (Thaisum Testset triads) : 3.3058621456211474
-Ikbaeb Typing Effort (Thaisum Testset triads) : 2.998725469378483
+Kedmanee Typing Effort (ThaisumTestset triads) : 4.613853139916257
+Pattachote Typing Effort (ThaisumTestset triads) : 3.63318341745942
+Ikbaeb Typing Effort (ThaisumTestset triads) : 3.302197598988309
 ========================================
-Kedmanee Typing Effort (Thaisum triads) : 4.173628770597141
-Pattachote Typing Effort (Thaisum triads) : 3.298540855408573
-Ikbaeb Typing Effort (Thaisum triads) : 2.9977849658768037
+Kedmanee Typing Effort (Thaisum triads) : 4.610060570710398
+Pattachote Typing Effort (Thaisum triads) : 3.620971626359677
+Ikbaeb Typing Effort (Thaisum triads) : 3.295402654892655
+========================================
+SUMMARY
+{
+  kedmaneeEffort: 22.45444088871979,
+  pattachoteEffort: 18.015675708381554,
+  ikbaebEffort: 16.297838862208984
+}
 ```
 
 ## Features
 
 - [x] Thai layout support, with Kedmanee & Pattachote
 - [x] Shifted keys typing effort model
+- [ ] Generate layout from randomized data
+  - [x] Greedy search for best effort
+  - [x] Locked keys (No swapping)
+  - [ ] Simulated annealing
 - [ ] Adjustable parameters (eg. Dominant hand, pinky penalty weight, etc.)
 - [ ] Ortholinear-layout support (eg. Planck, Ergodox)
+
+## Triads Datasets
+
+- [Thai National Corpus](http://www.arts.chula.ac.th/ling/tnc/searchtnc/)
+- [Wongnai-corpus](https://github.com/wongnai/wongnai-corpus)
+- [PyThaiNLP's Wisesight Sentiment Corpus](https://github.com/PyThaiNLP/wisesight-sentiment)
+- [ThaiSum](https://github.com/nakhunchumpolsathien/ThaiSum)
 
 ## References
 
