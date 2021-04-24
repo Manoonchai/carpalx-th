@@ -50,8 +50,15 @@ SUMMARY
   - [x] Greedy search for best effort
   - [x] Locked keys (No swapping)
   - [ ] Simulated annealing
+- [x] Layout preview on browser
+  - [x] Preview with data from optimizer
+  - [ ] Deploy
+  - [ ] Effort calculation API
+  - [ ] Drag & drop keys to swap
+  - [ ] Calculate effort from custom text input
 - [ ] Adjustable parameters (eg. Dominant hand, pinky penalty weight, etc.)
 - [ ] Ortholinear-layout support (eg. Planck, Ergodox)
+- [ ] Generate usable keyboard layout (Use tool like [klfc](https://github.com/39aldo39/klfc))
 
 ## Triads Datasets
 
