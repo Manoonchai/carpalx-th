@@ -9,7 +9,7 @@
     "build": "tsc",
     "test": "jest",
     "start": "ts-node src/main",
-    "optimize": "ts-node src/optimize",
+    "optimize": "ts-node -O '{\"noUnusedLocals\": false}' src/optimize",
     "generate-triads": "ts-node src/generate-triads",
     "generate-tnc": "ts-node src/generate-tnc"
   },
