@@ -57,7 +57,7 @@ SUMMARY
 - [ ] Generate layout from randomized data
   - [x] Greedy search for best effort
   - [x] Locked keys (No swapping)
-  - [ ] Simulated annealing
+  - [x] Simulated annealing
 - [x] Layout preview on browser
   - [x] Preview with data from optimizer
   - [ ] Deploy
