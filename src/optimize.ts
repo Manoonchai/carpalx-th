@@ -67,7 +67,7 @@ while (true) {
 
   const currentMatrix = JSON.parse(JSON.stringify(currentLayout.matrix))
 
-  for (let i = 0; i < 1 + ~~(Math.random() * 2); i++) {
+  for (let i = 0; i < 1 + ~~(Math.random() * 3); i++) {
     currentLayout.swapKeyPairForLayout()
   }
   const currentCarpalx = new Carpalx({ layout: currentLayout })
@@ -152,7 +152,7 @@ while (true) {
     console.log("Annealing Probability (failed)", prob.toFixed(30))
   }
 
-  if(pass >= N) {
+  if (pass >= N) {
     console.log("Run completed.")
     process.exit(0)
   } else {
