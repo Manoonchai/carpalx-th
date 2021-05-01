@@ -24,24 +24,32 @@ console.log("Arguments: ", { outputFile, layoutName, noLock })
 //   p0 = 1, // Initial probability
 //   N = 50000 // Number of iterations until probability reaches 0
 
-const t0 = 10,
+const t0 = 1,
   k = 10,
   p0 = 1,
-  N = 100000
+  N = 5000000
 
 const T = true,
   F = false
 
 // prettier-ignore
 const lockedKeys: ILayout<boolean> = [
+  // [T,T,T,T,T,T,T,T,T,T,T,T],
+  // [F,F,F,F,F,F,F,F,F,F,F,F,F],
+  // [F,F,F,F,F,F,F,F,F,F,F],
+  // [F,F,F,F,F,F,F,F,F,F],
+  // [T,T,T,T,T,T,T,T,T,T,T,T],
+  // [T,T,T,T,T,T,T,T,T,T,T,T,T],
+  // [T,T,T,T,T,T,T,T,T,T,T],
+  // [T,T,T,T,T,T,T,T,T,T],
   [T,T,T,T,T,T,T,T,T,T,T,T],
   [F,F,F,F,F,F,F,F,F,F,F,F,F],
-  [F,F,F,F,F,F,F,F,F,F,F],
-  [F,F,F,F,F,F,F,F,F,F],
+  [F,F,F,F,F,T,F,T,T,F,T],
+  [F,F,F,F,F,F,F,T,F,F],
   [T,T,T,T,T,T,T,T,T,T,T,T],
-  [F,F,F,F,F,F,F,F,F,F,F,F,F],
-  [F,F,F,F,F,F,F,F,F,F,F],
-  [F,F,F,F,F,F,F,F,F,F],
+  [T,T,T,F,F,F,F,F,F,F,F,T,T],
+  [F,F,T,F,F,F,F,F,F,F,T],
+  [T,F,F,F,T,F,F,F,T,T],
 ]
 
 let currentLayout = new Layout({
@@ -51,10 +59,18 @@ let currentLayout = new Layout({
 
 let pass = 1
 
-let thai5kEffort = Infinity
-let wisesightEffort = Infinity
-let wongnaiEffort = Infinity
-let thaisumEffort = Infinity
+const baseCarpalx = new Carpalx({ layout: new Layout({ name: "kedmanee" }) })
+
+let thai5kEffort = baseCarpalx.typingEffort(tnc5k)
+let wisesightEffort = baseCarpalx.typingEffort(wisesight)
+let wongnaiEffort = baseCarpalx.typingEffort(wongnai)
+let thaisumEffort = baseCarpalx.typingEffort(thaisum)
+
+const baselineEffort =
+  thai5kEffort + wisesightEffort + wongnaiEffort + thaisumEffort
+const percentRatio = 100 / baselineEffort
+
+let minSumEffort = baselineEffort * percentRatio // Should be 100
 
 console.log("Optimizing")
 
@@ -93,13 +109,15 @@ while (true) {
   )
 
   const currentSumEffort =
-    currentThai5kEffort +
-    currentWisesightEffort +
-    currentWongnaiEffort +
-    currentThaisumEffort
+    (currentThai5kEffort +
+      currentWisesightEffort +
+      currentWongnaiEffort +
+      currentThaisumEffort) *
+    percentRatio
 
   const baseSumEffort =
-    thai5kEffort + wisesightEffort + wongnaiEffort + thaisumEffort
+    (thai5kEffort + wisesightEffort + wongnaiEffort + thaisumEffort) *
+    percentRatio
 
   const effortDiff = currentSumEffort - baseSumEffort
   const isImproved = effortDiff < 0
@@ -129,17 +147,22 @@ while (true) {
 
     // console.log(currentLayout.matrix)
 
-    fs.appendFileSync(
-      outputFile,
-      `${pass} (Effort: ${currentSumEffort}, Diff: ${
-        currentSumEffort - baseSumEffort
-      }, Prob: ${prob.toFixed(
-        30
-      )}, Annealed: ${!isImproved})\n\n${currentLayout.matrix
-        .map((l) => JSON.stringify(l))
-        .join("\n")}\n==========================\n`,
-      "utf-8" //
-    )
+    // Write to file only improvements
+    if (currentSumEffort < minSumEffort) {
+      minSumEffort = currentSumEffort
+
+      fs.appendFileSync(
+        outputFile,
+        `${pass} (Effort: ${currentSumEffort}, Diff: ${
+          currentSumEffort - baseSumEffort
+        }, Prob: ${prob.toFixed(
+          30
+        )}, Annealed: ${!isImproved})\n\n${currentLayout.matrix
+          .map((l) => JSON.stringify(l))
+          .join("\n")}\n==========================\n`,
+        "utf-8" //
+      )
+    }
   } else {
     console.log(
       "This layout is not better, skipping ",
