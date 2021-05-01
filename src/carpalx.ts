@@ -4,7 +4,7 @@ import { Layout } from "./layout";
 const kb = 0.3555,
   kp = 0.6423,
   ks = 0.4268,
-  kl = 1.2846, // Layer change constant (largest)
+  kl = 3.0, // Layer change constant (largest)
   // ws = [1, 0.3, 0.3],
   wb = [1, 0.367, 0.235];
 // wp = [1, 0.367, 0.235];

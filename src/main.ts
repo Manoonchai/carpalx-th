@@ -1,5 +1,5 @@
-import Carpalx, { Triads } from "./carpalx"
-import { Layout } from "./layout"
+import Carpalx from "./carpalx"
+import { Layout, LayoutOptions } from "./layout"
 
 import thai5k from "../data/thai5k-freq.json"
 import { wisesight } from "../data/wisesight"
@@ -7,164 +7,48 @@ import { wongnai } from "../data/wongnai"
 import thaisumTestset from "../data/thaisum-testset.json"
 import thaisum from "../data/thaisum-full.json"
 
-const kedmaneeLayout = new Layout({ name: "kedmanee" })
-const kedmaneeCarpalx = new Carpalx({ layout: kedmaneeLayout })
+const layoutNames: Array<LayoutOptions["name"]> = [
+  "kedmanee",
+  "pattachote",
+  "ikbaeb",
+  "manoonchai_v01",
+  "manoonchai_v02",
+]
 
-const pattachoteLayout = new Layout({ name: "pattachote" })
-const pattachoteCarpalx = new Carpalx({ layout: pattachoteLayout })
+const datasets = {
+  thai5k,
+  wisesight,
+  wongnai,
+  thaisumTestset,
+  thaisum,
+}
 
-const ikbaebLayout = new Layout({ name: "ikbaeb" })
-const ikbaebCarpalx = new Carpalx({ layout: ikbaebLayout })
+let baseEffortSum: number
 
-const manoonchaiLayout = new Layout({ name: "manoonchai" })
-const manoonchaiCarpalx = new Carpalx({ layout: manoonchaiLayout })
+const result = layoutNames.map((layoutName) => {
+  const layout = new Layout({ name: layoutName })
+  const carpalxModel = new Carpalx({ layout })
 
-const hr = () => console.log("========================================")
+  const efforts: Array<[string, number]> = Object.entries(datasets).map(
+    ([name, dataset]) => {
+      return [name, carpalxModel.typingEffort(dataset)]
+    }
+  )
 
-console.log("Carpalx Typing Effort (Lower is better)")
+  const effortSum = efforts.reduce((prev, [_name, eff]) => prev + eff, 0)
 
-hr()
+  if (!baseEffortSum) {
+    baseEffortSum = effortSum
+  }
 
-let kedmaneeEffort = 0,
-  pattachoteEffort = 0,
-  ikbaebEffort = 0,
-  manoonchaiEffort = 0,
-  effort = 0
-
-console.log(
-  "Kedmanee Typing Effort (Thai5k-freq triads) :",
-  (effort = kedmaneeCarpalx.typingEffort(thai5k))
-)
-kedmaneeEffort += effort
-
-console.log(
-  "Pattachote Typing Effort (Thai5k-freq triads) :",
-  (effort = pattachoteCarpalx.typingEffort(thai5k))
-)
-pattachoteEffort += effort
-
-console.log(
-  "Ikbaeb Typing Effort (Thai5k-freq triads) :",
-  (effort = ikbaebCarpalx.typingEffort(thai5k))
-)
-ikbaebEffort += effort
-
-console.log(
-  "Manoonchai Typing Effort (Thai5k-freq triads) :",
-  (effort = manoonchaiCarpalx.typingEffort(thai5k))
-)
-manoonchaiEffort += effort
-
-hr()
-
-console.log(
-  "Kedmanee Typing Effort (Wisesight Sentiment triads) :",
-  (effort = kedmaneeCarpalx.typingEffort(wisesight))
-)
-kedmaneeEffort += effort
-
-console.log(
-  "Pattachote Typing Effort (Wisesight Sentiment triads) :",
-  (effort = pattachoteCarpalx.typingEffort(wisesight))
-)
-pattachoteEffort += effort
-
-console.log(
-  "Ikbaeb Typing Effort (Wisesight Sentiment triads) :",
-  (effort = ikbaebCarpalx.typingEffort(wisesight))
-)
-ikbaebEffort += effort
-
-console.log(
-  "Manoonchai Typing Effort (Wisesight Sentiment triads) :",
-  (effort = manoonchaiCarpalx.typingEffort(wisesight))
-)
-manoonchaiEffort += effort
-
-hr()
-
-console.log(
-  "Kedmanee Typing Effort (Wongnai Corpus triads) :",
-  (effort = kedmaneeCarpalx.typingEffort(wongnai))
-)
-kedmaneeEffort += effort
-
-console.log(
-  "Pattachote Typing Effort (Wongnai Corpus triads) :",
-  (effort = pattachoteCarpalx.typingEffort(wongnai))
-)
-pattachoteEffort += effort
-
-console.log(
-  "Ikbaeb Typing Effort (Wongnai Corpus triads) :",
-  (effort = ikbaebCarpalx.typingEffort(wongnai))
-)
-ikbaebEffort += effort
-
-console.log(
-  "Manoonchai Typing Effort (Wongnai Corpus triads) :",
-  (effort = manoonchaiCarpalx.typingEffort(wongnai))
-)
-manoonchaiEffort += effort
-
-hr()
-
-console.log(
-  "Kedmanee Typing Effort (ThaisumTestset triads) :",
-  (effort = kedmaneeCarpalx.typingEffort(thaisumTestset))
-)
-kedmaneeEffort += effort
-
-console.log(
-  "Pattachote Typing Effort (ThaisumTestset triads) :",
-  (effort = pattachoteCarpalx.typingEffort(thaisumTestset))
-)
-pattachoteEffort += effort
-
-console.log(
-  "Ikbaeb Typing Effort (ThaisumTestset triads) :",
-  (effort = ikbaebCarpalx.typingEffort(thaisumTestset))
-)
-ikbaebEffort += effort
-
-console.log(
-  "Manoonchai Typing Effort (ThaisumTestset triads) :",
-  (effort = manoonchaiCarpalx.typingEffort(thaisumTestset))
-)
-manoonchaiEffort += effort
-
-hr()
-
-console.log(
-  "Kedmanee Typing Effort (Thaisum triads) :",
-  (effort = kedmaneeCarpalx.typingEffort(thaisum as Triads))
-)
-kedmaneeEffort += effort
-
-console.log(
-  "Pattachote Typing Effort (Thaisum triads) :",
-  (effort = pattachoteCarpalx.typingEffort(thaisum as Triads))
-)
-pattachoteEffort += effort
-
-console.log(
-  "Ikbaeb Typing Effort (Thaisum triads) :",
-  (effort = ikbaebCarpalx.typingEffort(thaisum as Triads))
-)
-ikbaebEffort += effort
-
-console.log(
-  "Manoonchai Typing Effort (Thaisum triads) :",
-  (effort = manoonchaiCarpalx.typingEffort(thaisum as Triads))
-)
-manoonchaiEffort += effort
-
-hr()
-
-console.info("SUMMARY")
-console.info({
-  kedmaneeEffort,
-  pattachoteEffort,
-  ikbaebEffort,
-  manoonchaiEffort,
+  return {
+    name: layoutName,
+    efforts: efforts
+      .map(([name, score]) => `${name} : ~${score.toFixed(2)}`)
+      .join(", "),
+    effortSum,
+    better: ((baseEffortSum / effortSum) * 100 - 100).toFixed(2) + "%",
+  }
 })
+
+console.table(result)
