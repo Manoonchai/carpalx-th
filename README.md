@@ -14,40 +14,15 @@ Ultimately, I will also use this to create [my own Thai keyboard layout](https:/
 ## Result
 
 ```plaintext
-Carpalx Typing Effort (Lower is better)
-========================================
-Kedmanee Typing Effort (Thai5k-freq triads) : 4.568587982241603
-Pattachote Typing Effort (Thai5k-freq triads) : 3.721466171054276
-Ikbaeb Typing Effort (Thai5k-freq triads) : 3.3112141700279105
-Manoonchai Typing Effort (Thai5k-freq triads) : 3.0456039432593194
-========================================
-Kedmanee Typing Effort (Wisesight Sentiment triads) : 4.471218614474043
-Pattachote Typing Effort (Wisesight Sentiment triads) : 3.60479984531367
-Ikbaeb Typing Effort (Wisesight Sentiment triads) : 3.3130963771643605
-Manoonchai Typing Effort (Wisesight Sentiment triads) : 3.0249962116471933
-========================================
-Kedmanee Typing Effort (Wongnai Corpus triads) : 4.238078555193414
-Pattachote Typing Effort (Wongnai Corpus triads) : 3.508272809489892
-Ikbaeb Typing Effort (Wongnai Corpus triads) : 3.2354116252199523
-Manoonchai Typing Effort (Wongnai Corpus triads) : 2.885227582906717
-========================================
-Kedmanee Typing Effort (ThaisumTestset triads) : 4.6138531399162295
-Pattachote Typing Effort (ThaisumTestset triads) : 3.633183417459415
-Ikbaeb Typing Effort (ThaisumTestset triads) : 3.302197598988324
-Manoonchai Typing Effort (ThaisumTestset triads) : 3.033418252046343
-========================================
-Kedmanee Typing Effort (Thaisum triads) : 4.610060570710407
-Pattachote Typing Effort (Thaisum triads) : 3.620971626359698
-Ikbaeb Typing Effort (Thaisum triads) : 3.295402654892645
-Manoonchai Typing Effort (Thaisum triads) : 3.030033623828917
-========================================
-SUMMARY
-{
-  kedmaneeEffort: 22.501798862535697,
-  pattachoteEffort: 18.088693869676952,
-  ikbaebEffort: 16.457322426293192,
-  manoonchaiEffort: 15.01927961368849
-}
+┌─────────┬──────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────┬────────────────────┬──────────┐
+│ (index) │       name       │                                            efforts                                            │     effortSum      │  better  │
+├─────────┼──────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────┼────────────────────┼──────────┤
+│    0    │    'kedmanee'    │ 'thai5k : ~4.70, wisesight : ~4.36, wongnai : ~4.13, thaisumTestset : ~4.45, thaisum : ~4.44' │ 22.080485875562218 │ '0.00%'  │
+│    1    │   'pattachote'   │ 'thai5k : ~4.14, wisesight : ~3.70, wongnai : ~3.56, thaisumTestset : ~3.73, thaisum : ~3.70' │ 18.82508737117029  │ '17.29%' │
+│    2    │     'ikbaeb'     │ 'thai5k : ~3.90, wisesight : ~3.59, wongnai : ~3.49, thaisumTestset : ~3.60, thaisum : ~3.59' │ 18.167805526073572 │ '21.54%' │
+│    3    │ 'manoonchai_v01' │ 'thai5k : ~3.60, wisesight : ~3.26, wongnai : ~3.09, thaisumTestset : ~3.28, thaisum : ~3.28' │ 16.503597799198495 │ '33.79%' │
+│    4    │ 'manoonchai_v02' │ 'thai5k : ~3.09, wisesight : ~2.99, wongnai : ~2.77, thaisumTestset : ~2.97, thaisum : ~2.96' │ 14.76995072609058  │ '49.50%' │
+└─────────┴──────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────┴────────────────────┴──────────┘
 ```
 
 ## Features
