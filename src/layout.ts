@@ -26,7 +26,7 @@ export type ILayout<T> = [
   [T,T,T,T,T,T,T,T,T,T],
 ]
 
-const LAYOUTS: ILayoutMatrix = {
+export const LAYOUTS: ILayoutMatrix = {
   pattachote: [
     ["๛", "๒", "๓", "๔", "๕", "ู", "๗", "๘", "๙", "๐", "๑", "๖"], // Put ๛ as a placeholder
     ["็", "ต", "ย", "อ", "ร", "่", "ด", "ม", "ว", "แ", "ใ", "ฌ", "ฃ"],
