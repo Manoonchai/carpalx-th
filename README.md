@@ -11,6 +11,26 @@ So this is a Thai version of Carpalx, and also the extension which introduce typ
 
 Ultimately, I will also use this to create [my own Thai keyboard layout](https://github.com/narze/manoonchai).
 
+## Usage
+
+- Calculate effort from layouts
+
+```shell
+yarn start
+```
+
+- Optimize layout using Stochastic Optimization method
+
+```shell
+yarn optimize [layout_name] [output_file.txt]
+```
+
+- Layout previewer
+
+```shell
+yarn web
+```
+
 ## Result
 
 ```plaintext
@@ -35,8 +55,8 @@ Ultimately, I will also use this to create [my own Thai keyboard layout](https:/
   - [x] Simulated annealing
 - [x] Layout preview on browser
   - [x] Preview with data from optimizer
+  - [x] Effort calculation API
   - [ ] Deploy
-  - [ ] Effort calculation API
   - [ ] Drag & drop keys to swap
   - [ ] Calculate effort from custom text input
 - [ ] Adjustable parameters (eg. Dominant hand, pinky penalty weight, etc.)
