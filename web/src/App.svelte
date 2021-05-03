@@ -65,7 +65,22 @@
     return layoutData[i].map((x, j) => [x, layoutData[i+layoutData.length / 2][j]])
   })
 
-  $: console.log({layoutDataDisplay})
+  function swapKeyPair(e) {
+    keysToSwap = [...keysToSwap, e.target.textContent]
+
+    if (keysToSwap.length === 2) {
+      const [x, y] = keysToSwap
+
+      layoutInput = layoutInput.replace('"\\""', '"""')
+                               .replace(`"${x}"`, "{y}")
+                               .replace(`"${y}"`, "{x}")
+                               .replace("{x}", `"${x}"`)
+                               .replace("{y}", `"${y}"`)
+                               .replace('"""', '"\\""')
+
+      keysToSwap = []
+    }
+  }
 </script>
 
 <main>
@@ -81,8 +96,8 @@
       </div>
       {#each layoutDataDisplay[0] as keypair}
         <div class="key">
-          <div class="key__top">{keypair[1]}</div>
-          <div class="key__bottom">{keypair[0]}</div>
+          <div class="key__top swappable" on:mousedown={swapKeyPair}>{keypair[1]}</div>
+          <div class="key__bottom swappable" on:mousedown={swapKeyPair}>{keypair[0]}</div>
         </div>
       {/each}
       <div class="key is-backspace">
@@ -94,8 +109,8 @@
       </div>
       {#each layoutDataDisplay[1] as keypair}
         <div class="key">
-          <div class="key__top">{keypair[1]}</div>
-          <div class="key__bottom">{keypair[0]}</div>
+          <div class="key__top swappable" on:mousedown={swapKeyPair}>{keypair[1]}</div>
+          <div class="key__bottom swappable" on:mousedown={swapKeyPair}>{keypair[0]}</div>
         </div>
       {/each}
       <!-- Third row -->
@@ -104,8 +119,8 @@
       </div>
       {#each layoutDataDisplay[2] as keypair}
         <div class="key">
-          <div class="key__top">{keypair[1]}</div>
-          <div class="key__bottom">{keypair[0]}</div>
+          <div class="key__top swappable" on:mousedown={swapKeyPair}>{keypair[1]}</div>
+          <div class="key__bottom swappable" on:mousedown={swapKeyPair}>{keypair[0]}</div>
         </div>
       {/each}
       <div class="key is-enter is-right">
@@ -118,8 +133,8 @@
       </div>
       {#each layoutDataDisplay[3] as keypair}
         <div class="key">
-          <div class="key__top">{keypair[1]}</div>
-          <div class="key__bottom">{keypair[0]}</div>
+          <div class="key__top swappable" on:mousedown={swapKeyPair}>{keypair[1]}</div>
+          <div class="key__bottom swappable" on:mousedown={swapKeyPair}>{keypair[0]}</div>
         </div>
       {/each}
       <div class="key is-shift-right is-right">
@@ -153,6 +168,11 @@
       <div class="key is-arrow-right">&rtrif;</div>
     </div>
   </div>
+    {#if keysToSwap.length === 1}
+      <p>Click another character to swap</p>
+    {:else}
+      <p>You can swap characters by clicking at the buttons</p>
+    {/if}
 
     <div><textarea id="layout-input" bind:value={layoutInput} cols="55" rows="11"></textarea></div>
 
