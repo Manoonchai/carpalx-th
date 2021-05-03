@@ -49,7 +49,7 @@ yarn web
 
 - [x] Thai layout support, with Kedmanee & Pattachote
 - [x] Shifted keys typing effort model
-- [ ] Generate layout from randomized data
+- [x] Generate layout from randomized data
   - [x] Greedy search for best effort
   - [x] Locked keys (No swapping)
   - [x] Simulated annealing
