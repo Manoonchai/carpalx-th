@@ -20,21 +20,14 @@
   let effort, carpalxModel
 
   const predefinedLayouts = [
+    { id: "manoonchai_v02", text: "Manoonchai v0.2" },
+    { id: "manoonchai_v01", text: "Manoonchai v0.1" },
     { id: "kedmanee", text: "Kedmanee" },
     { id: "pattachote", text: "Pattachote" },
     { id: "ikbaeb", text: "Ikbaeb" },
-    { id: "manoonchai_v01", text: "Manoonchai v0.1" },
-    { id: "manoonchai_v02", text: "Manoonchai v0.2" },
   ]
 
-  let layoutInput = '["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="]\n' +
-              '["พ", "ค", "ย", "ว", "ล", "ป", "ั", "ก", "ต", "บ", "็", "ู", "์"]\n' +
-              '["ห", "เ", "น", "ร", "ม", "อ", "า", "่", "้", "ง", "ื"]\n' +
-              '["ช", "ไ", "ส", "ท", "จ", "ิ", "ี", "ด", "ะ", "ุ"]\n' +
-              '["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+"]\n' +
-              '["ฑ", "ฒ", "ษ", "ญ", "ฟ", "ฎ", "ฉ", "ภ", "ฐ", "ฤ", "ฆ", "ฌ", "ฯ"]\n' +
-              '["ๆ", "ถ", "แ", "ข", "ผ", "ึ", "ใ", "ำ", "โ", "ศ", "ฮ"]\n' +
-              '["ฬ", "๋", "๊", "ซ", "ฝ", "?", "ณ", "ธ", "ฏ", "฿"]'
+  let layoutInput = new Layout({ name: "manoonchai_v02" }).matrix.map((row) => JSON.stringify(row).replaceAll('","', '", "')).join("\n")
 
   $: layoutData = layoutInput.trim().split("\n").map((line) => {
     let data = []
@@ -190,7 +183,7 @@
 
     <div><textarea id="layout-input" bind:value={layoutInput} cols="55" rows="11"></textarea></div>
 
-    <select on:change={selectLayout}>
+    <select on:change={selectLayout} on:blur={selectLayout}>
       <option disabled selected value>
         -- Select Layout --
       </option>
