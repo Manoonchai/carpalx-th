@@ -162,7 +162,7 @@ $keyboard-spacing: 16px;
 }
 
 #layout-input {
-  margin-top: 1rem;
+  margin: 0.5rem;
 }
 
 .swappable {
@@ -174,4 +174,8 @@ $keyboard-spacing: 16px;
 .swappable:hover {
   background-color: lightgrey;
   cursor: pointer;
+}
+
+.prompt {
+  margin: 0.5em;
 }

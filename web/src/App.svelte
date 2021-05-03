@@ -94,6 +94,8 @@
   <div class="container">
     <h1>Carpalx TH : Layout Renderer</h1>
 
+    <a class="github-button" href="https://github.com/narze/carpalx-th" data-size="large" data-show-count="true" aria-label="Star narze/carpalx-th on GitHub">Star</a>
+
   <div class="keyboard-container">
     <div class="keyboard">
       <!-- First row -->
@@ -176,12 +178,12 @@
     </div>
   </div>
     {#if keysToSwap.length === 1}
-      <p>Click another character to swap</p>
+      <div class="prompt">Click another character to swap</div>
     {:else}
-      <p>You can swap characters by clicking at the buttons</p>
+      <div class="prompt">You can swap characters by clicking at the buttons</div>
     {/if}
 
-    <div><textarea id="layout-input" bind:value={layoutInput} cols="55" rows="11"></textarea></div>
+    <div><textarea id="layout-input" bind:value={layoutInput} cols="55" rows="10"></textarea></div>
 
     <select on:change={selectLayout} on:blur={selectLayout}>
       <option disabled selected value>
