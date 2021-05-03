@@ -56,8 +56,8 @@ yarn web
 - [x] Layout preview on browser
   - [x] Preview with data from optimizer
   - [x] Effort calculation API
-  - [ ] Deploy
-  - [ ] Drag & drop keys to swap
+  - [x] Deploy
+  - [x] Drag & drop keys to swap
   - [ ] Calculate effort from custom text input
 - [ ] Adjustable parameters (eg. Dominant hand, pinky penalty weight, etc.)
 - [ ] Ortholinear-layout support (eg. Planck, Ergodox)
