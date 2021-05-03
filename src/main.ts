@@ -13,6 +13,7 @@ const layoutNames: Array<LayoutOptions["name"]> = [
   "ikbaeb",
   "manoonchai_v01",
   "manoonchai_v02",
+  "manoonchai_v02b",
 ]
 
 const datasets = {
