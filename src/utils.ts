@@ -1,4 +1,4 @@
-import { Triads } from "./carpalx";
+import type { Triads } from "./carpalx";
 
 export function extractTriads(triads: Triads = {}, input: string): void {
   const sentences = input.split(/\s+/);
