@@ -18,6 +18,15 @@
 
   let keysToSwap = []
   let effort, carpalxModel
+
+  const predefinedLayouts = [
+    { id: "kedmanee", text: "Kedmanee" },
+    { id: "pattachote", text: "Pattachote" },
+    { id: "ikbaeb", text: "Ikbaeb" },
+    { id: "manoonchai_v01", text: "Manoonchai v0.1" },
+    { id: "manoonchai_v02", text: "Manoonchai v0.2" },
+  ]
+
   let layoutInput = '["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="]\n' +
               '["พ", "ค", "ย", "ว", "ล", "ป", "ั", "ก", "ต", "บ", "็", "ู", "์"]\n' +
               '["ห", "เ", "น", "ร", "ม", "อ", "า", "่", "้", "ง", "ื"]\n' +
@@ -80,6 +89,11 @@
 
       keysToSwap = []
     }
+  }
+
+  function selectLayout(e) {
+    const name = e.currentTarget.value
+    layoutInput = new Layout({ name }).matrix.map((row) => JSON.stringify(row).replaceAll('","', '", "')).join("\n")
   }
 </script>
 
@@ -175,6 +189,17 @@
     {/if}
 
     <div><textarea id="layout-input" bind:value={layoutInput} cols="55" rows="11"></textarea></div>
+
+    <select on:change={selectLayout}>
+      <option disabled selected value>
+        -- Select Layout --
+      </option>
+      {#each predefinedLayouts as layout}
+        <option value={layout.id}>
+          {layout.text}
+        </option>
+      {/each}
+    </select>
 
     <div>Effort vs Kedmanee : {effort}</div>
   </div>
