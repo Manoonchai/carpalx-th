@@ -22,6 +22,7 @@
   const predefinedLayouts = [
     { id: "manoonchai_v02", text: "Manoonchai v0.2" },
     { id: "manoonchai_v02b", text: "Manoonchai v0.2b" },
+    { id: "manoonchai_v02c", text: "Manoonchai v0.2c" },
     { id: "manoonchai_v01", text: "Manoonchai v0.1" },
     { id: "kedmanee", text: "Kedmanee" },
     { id: "pattachote", text: "Pattachote" },
