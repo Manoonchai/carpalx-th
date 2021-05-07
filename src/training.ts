@@ -3,12 +3,17 @@ import fs from "fs"
 
 const charsets = {
   "home-basic": "งเรนา่้ว",
+  "home-basic-shift": "งเรนา่้วษถแชำขโภ",
   "home-row": "งเรนมอา่้วื",
+  "home-row-shift": 'งเรนมอา่้วืษถแชพผำขโภ"',
   "upper-basic": "ใตหลักิบ",
-  "upper-row": "ใตหลสปักิบ็",
-  "upper-full": "ใตหลสปักิบ็ฬฯ",
+  "upper-basic-shift": "ใตหลักิบฒฏซญึธฐฎ",
+  "upper-row": "ใตหลสปักิบ็ฬฯ",
+  "upper-row-shift": "ใตหลสปักิบ็ฬฯฒฏซญฟฉึธฐฎฆฑฌ",
   "lower-basic": "ุไทยีดะู",
+  "lower-basic-shift": "ุไทยีดะูฤฝๆณ์ศฮ?",
   "lower-row": "ุไทยจคีดะู",
+  "lower-row-shift": "ุไทยจคีดะูฤฝๆณ๊๋์ศฮ?",
 }
 
 const wordsets: Record<string, string[]> = {}
