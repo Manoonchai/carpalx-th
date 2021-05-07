@@ -13,7 +13,8 @@
     "optimize": "ts-node -O '{\"noUnusedLocals\": false}' src/optimize",
     "generate-triads": "ts-node src/generate-triads",
     "generate-tnc": "ts-node src/generate-tnc",
-    "filter-words": "ts-node src/filter-words"
+    "filter-words": "ts-node src/filter-words",
+    "training": "ts-node src/training"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",

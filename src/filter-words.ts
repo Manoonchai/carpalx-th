@@ -2,7 +2,8 @@ import csv from "csv-parser"
 import fs from "fs"
 import { LayoutOptions, LAYOUTS } from "./layout"
 
-const layout: LayoutOptions["name"] = process.argv[2] as LayoutOptions["name"] || "manoonchai_v03"
+const layout: LayoutOptions["name"] =
+  (process.argv[2] as LayoutOptions["name"]) || "manoonchai_v03"
 
 const allowedChars: string = LAYOUTS[layout][2].join("")
 const allowedCharsRegex = new RegExp(`^[${allowedChars}]+$`)
