@@ -32,7 +32,7 @@ fs.createReadStream("./data/tnc5000_withfreq.csv")
     const stream = fs.createWriteStream("training.txt", { flags: "w" })
 
     Object.entries(wordsets).forEach(([set, words]) => {
-      stream.write(`${set} :\n`)
+      stream.write(`${set} (${words.length}) :\n`)
       stream.write(`${words.sort().join(" ")}\n\n`)
     })
   })
