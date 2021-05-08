@@ -187,7 +187,6 @@ fs.createReadStream("./data/tnc5000_withfreq.csv")
 
     // Copy to static/languages/_list.json
     const defaultList = [
-      "-------------To be continued-------------",
       "thai_manoonchai_home_row",
       "thai_manoonchai_home_row_shift",
       "thai_manoonchai_upper_basic",
