@@ -56,6 +56,56 @@ const lessons: ILesson[] = [
   { name: "Pointing 06 - นิ้วชี้แถวล่าง - ค", newChars: ["ค"] },
   { name: "Pointing 07 - นิ้วชี้แถวบน - ส", newChars: ["ส"] },
   { name: "Pointing 08 - นิ้วชี้แถวบน - ป", newChars: ["ป"] },
+
+  // Home (Shifted)
+  { name: "Home Shift 01 - ช", newChars: ["ช"] },
+  { name: "Home Shift 02 - สระอำ", newChars: ["ำ"] },
+  { name: "Home Shift 03 - สระแอ", newChars: ["แ"] },
+  { name: "Home Shift 04 - ข", newChars: ["ข"] },
+  { name: "Home Shift 05 - ถ", newChars: ["ถ"] },
+  { name: "Home Shift 06 - สระโอ", newChars: ["โ"] },
+  { name: "Home Shift 07 - ษ", newChars: ["ษ"] },
+  { name: "Home Shift 08 - ภ", newChars: ["ภ"] },
+  { name: "Home Shift 09 - พ", newChars: ["พ"] },
+  { name: "Home Shift 10 - ผ", newChars: ["ผ"] },
+
+  // Pointing Finger (Shifted)
+  { name: "Pointing Shift 01 - นิ้วชี้แถวล่าง - ณ", newChars: ["ณ"] },
+  { name: "Pointing Shift 02 - นิ้วชี้แถวล่าง - การันต์", newChars: ["์"] },
+  { name: "Pointing Shift 03 - นิ้วชี้แถวบน - ญ", newChars: ["ญ"] },
+  { name: "Pointing Shift 04 - นิ้วชี้แถวบน - สระอึ", newChars: ["ึ"] },
+
+  // Middle Finger (Shifted)
+  { name: "Middle Shift 01 - นิ้วกลางแถวล่าง - ๆ", newChars: ["ๆ"] },
+  { name: "Middle Shift 02 - นิ้วกลางแถวล่าง - ศ", newChars: ["ศ"] },
+  { name: "Middle Shift 03 - นิ้วกลางแถวบน - ซ", newChars: ["ซ"] },
+  { name: "Middle Shift 04 - นิ้วกลางแถวบน - ธ", newChars: ["ธ"] },
+
+  // Ring Finger (Shifted)
+  { name: "Ring Shift 01 - นิ้วนางแถวล่าง - ฝ", newChars: ["ฝ"] },
+  { name: "Ring Shift 02 - นิ้วนางแถวล่าง - ฮ", newChars: ["ฮ"] },
+  { name: "Ring Shift 03 - นิ้วนางแถวบน - ฏ", newChars: ["ฏ"] },
+  { name: "Ring Shift 04 - นิ้วนางแถวบน - ฐ", newChars: ["ฐ"] },
+
+  // Little Finger (Shifted)
+  { name: "Little Shift 01 - นิ้วก้อยแถวล่าง - ฤ", newChars: ["ฤ"] },
+  { name: "Little Shift 02 - นิ้วก้อยแถวบน - ฒ", newChars: ["ฒ"] },
+  { name: "Little Shift 03 - นิ้วก้อยแถวบน - ฎ", newChars: ["ฎ"] },
+  { name: "Little Shift 04 - นิ้วก้อยแถวบน - ฆ", newChars: ["ฆ"] },
+
+  // Other
+  { name: "Other 01 - นิ้วก้อยบนขวา ฬ", newChars: ["ฬ"] },
+  { name: "Other 02 - นิ้วก้อยบนขวา ฑ", newChars: ["ฑ"] },
+  {
+    name: "Other 03 - นิ้วก้อยบนขวา ฯ",
+    newChars: ["ฯ"],
+    newWords: ["นายกฯ", "ข้าฯ", "ฯพณฯ", "กรุงเทพฯ", "โปรดเกล้าฯ"],
+  },
+  {
+    name: "Other 04 - นิ้วก้อยบนขวา ฌ",
+    newChars: ["ฌ"],
+    newWords: ["ฌาน", "ฌาปณกิจ", "เฌอปราง", "เฌอเอม"],
+  },
 ]
 
 const totalChars: string[] = []
@@ -67,14 +117,6 @@ lessons.forEach((lesson, idx) => {
   totalChars.push(...lesson.newChars)
   lesson.chars = Object.assign([], totalChars)
 })
-
-// ["ใ", "ต", "ห", "ล", "ส", "ป", "ั", "ก", "ิ", "บ", "็", "ฬ", "ฯ"],
-// ["ง", "เ", "ร", "น", "ม", "อ", "า", "่", "้", "ว", "ื"],
-// ["ุ", "ไ", "ท", "ย", "จ", "ค", "ี", "ด", "ะ", "ู"],
-
-// ["ฒ", "ฏ", "ซ", "ญ", "ฟ", "ฉ", "ึ", "ธ", "ฐ", "ฎ", "ฆ", "ฑ", "ฌ"],
-// ["ษ", "ถ", "แ", "ช", "พ", "ผ", "ำ", "ข", "โ", "ภ", '"'],
-// ["ฤ", "ฝ", "ๆ", "ณ", "๊", "๋", "์", "ศ", "ฮ", "?"],
 
 fs.createReadStream("./data/tnc5000_withfreq.csv")
   .pipe(csv())
