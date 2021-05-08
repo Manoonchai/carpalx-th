@@ -14,7 +14,9 @@
     "generate-triads": "ts-node src/generate-triads",
     "generate-tnc": "ts-node src/generate-tnc",
     "filter-words": "ts-node src/filter-words",
-    "training": "ts-node src/training"
+    "training": "ts-node src/training",
+    "get-words": "ts-node src/get-words",
+    "generate-lessons": "ts-node src/generate-lessons"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",
