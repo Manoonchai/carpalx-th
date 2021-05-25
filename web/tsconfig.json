@@ -1,9 +1,0 @@
-{
-  "extends": "@tsconfig/svelte/tsconfig.json",
-  "compilerOptions": {
-    "lib": ["dom", "es6", "es2017", "esnext.asynciterable", "es2019", "esnext"],
-    "resolveJsonModule": true
-  },
-  "include": ["src/**/*", "../src/**/*"],
-  "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
-}
