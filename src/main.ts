@@ -6,6 +6,8 @@ import { wisesight } from "../data/wisesight"
 import { wongnai } from "../data/wongnai"
 import thaisumTestset from "../data/thaisum-testset.json"
 import thaisum from "../data/thaisum-full.json"
+import { sugreeTweets } from "../data/sugree-tweets"
+import { thaiTweets } from "../data/thai-tweets"
 
 const layoutNames: Array<LayoutOptions["name"]> = [
   "kedmanee",
@@ -23,6 +25,8 @@ const datasets = {
   wongnai,
   thaisumTestset,
   thaisum,
+  sugreeTweets,
+  thaiTweets,
 }
 
 let baseEffortSum: number

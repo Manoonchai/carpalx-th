@@ -6,6 +6,8 @@ import { ILayout, Layout, LayoutOptions } from "./layout"
 import tnc5k from "../data/thai5k-freq.json"
 import { wisesight } from "../data/wisesight"
 import { wongnai } from "../data/wongnai"
+import { thaiTweets } from "../data/thai-tweets"
+import { sugreeTweets } from "../data/sugree-tweets"
 // import thaisumTestset from "../data/thaisum-testset.json"
 import thaisum from "../data/thaisum-full.json"
 
@@ -27,7 +29,7 @@ console.log("Arguments: ", { outputFile, layoutName, noLock })
 const t0 = 1,
   k = 10,
   p0 = 1,
-  N = 5000000
+  N = 2000000
 
 const T = true,
   F = false
@@ -43,13 +45,13 @@ const lockedKeys: ILayout<boolean> = [
   // [T,T,T,T,T,T,T,T,T,T,T],
   // [T,T,T,T,T,T,T,T,T,T],
   [T,T,T,T,T,T,T,T,T,T,T,T],
-  [F,F,F,F,F,F,F,F,F,F,F,F,F],
-  [F,F,F,F,F,T,F,T,T,F,T],
-  [F,F,F,F,F,F,F,T,F,F],
+  [F,F,F,F,F,F,F,F,F,F,F,T,T],
+  [F,F,F,F,F,F,F,F,F,F,F],
+  [F,F,F,F,F,F,F,F,F,F],
   [T,T,T,T,T,T,T,T,T,T,T,T],
-  [T,T,T,F,F,F,F,F,F,F,F,T,T],
-  [F,F,T,F,F,F,F,F,F,F,T],
-  [T,F,F,F,T,F,F,F,T,T],
+  [F,F,F,F,F,F,F,F,F,F,F,T,T],
+  [F,F,F,F,F,F,F,F,F,F,T],
+  [F,F,F,F,F,F,F,F,F,T],
 ]
 
 let currentLayout = new Layout({
@@ -65,9 +67,16 @@ let thai5kEffort = baseCarpalx.typingEffort(tnc5k)
 let wisesightEffort = baseCarpalx.typingEffort(wisesight)
 let wongnaiEffort = baseCarpalx.typingEffort(wongnai)
 let thaisumEffort = baseCarpalx.typingEffort(thaisum)
+let sugreeTweetsEffort = baseCarpalx.typingEffort(sugreeTweets)
+let thaiTweetsEffort = baseCarpalx.typingEffort(thaiTweets)
 
 const baselineEffort =
-  thai5kEffort + wisesightEffort + wongnaiEffort + thaisumEffort
+  thai5kEffort +
+  wisesightEffort +
+  wongnaiEffort +
+  thaisumEffort +
+  sugreeTweetsEffort +
+  thaiTweetsEffort
 const percentRatio = 100 / baselineEffort
 
 let minSumEffort = baselineEffort * percentRatio // Should be 100
@@ -79,7 +88,9 @@ while (true) {
   let currentThai5kEffort = 0,
     currentWisesightEffort = 0,
     currentWongnaiEffort = 0,
-    currentThaisumEffort = 0
+    currentThaisumEffort = 0,
+    currentThaiTweetsEffort = 0,
+    currentSugreeTweetsEffort = 0
 
   const currentMatrix = JSON.parse(JSON.stringify(currentLayout.matrix))
 
@@ -108,15 +119,36 @@ while (true) {
     (currentThaisumEffort = currentCarpalx.typingEffort(thaisum as Triads))
   )
 
+  console.log(
+    "Typing Effort (ThaiTweets triads) :",
+    (currentThaiTweetsEffort = currentCarpalx.typingEffort(
+      thaiTweets as Triads
+    ))
+  )
+
+  console.log(
+    "Typing Effort (SugreeTweets triads) :",
+    (currentSugreeTweetsEffort = currentCarpalx.typingEffort(
+      sugreeTweets as Triads
+    ))
+  )
+
   const currentSumEffort =
     (currentThai5kEffort +
       currentWisesightEffort +
       currentWongnaiEffort +
+      currentThaiTweetsEffort +
+      currentSugreeTweetsEffort +
       currentThaisumEffort) *
     percentRatio
 
   const baseSumEffort =
-    (thai5kEffort + wisesightEffort + wongnaiEffort + thaisumEffort) *
+    (thai5kEffort +
+      wisesightEffort +
+      wongnaiEffort +
+      thaisumEffort +
+      thaiTweetsEffort +
+      sugreeTweetsEffort) *
     percentRatio
 
   const effortDiff = currentSumEffort - baseSumEffort
@@ -144,6 +176,8 @@ while (true) {
     wisesightEffort = currentWisesightEffort
     wongnaiEffort = currentWongnaiEffort
     thaisumEffort = currentThaisumEffort
+    thaiTweetsEffort = currentThaiTweetsEffort
+    sugreeTweetsEffort = currentSugreeTweetsEffort
 
     // console.log(currentLayout.matrix)
 
