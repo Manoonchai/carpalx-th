@@ -65,6 +65,8 @@ yarn optimize [layout_name] [output_file.txt]
 - [Wongnai-corpus](https://github.com/wongnai/wongnai-corpus)
 - [PyThaiNLP's Wisesight Sentiment Corpus](https://github.com/PyThaiNLP/wisesight-sentiment)
 - [ThaiSum](https://github.com/nakhunchumpolsathien/ThaiSum)
+- Thai language tweets scraped with [Twint](https://github.com/twintproject/twint), triads extracted with https://github.com/Manoonchai/triads_extractor
+- [@sugree's](https://twitter.com/sugree) tweets scraped with [Twint](https://github.com/twintproject/twint), triads extracted with https://github.com/Manoonchai/triads_extractor
 
 ## References
 
