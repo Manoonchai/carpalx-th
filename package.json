@@ -15,6 +15,7 @@
     "generate-tnc": "ts-node src/generate-tnc",
     "filter-words": "ts-node src/filter-words",
     "training": "ts-node src/training",
+    "training_shorts": "ts-node src/training_shorts",
     "get-words": "ts-node src/get-words",
     "generate-lessons": "ts-node src/generate-lessons"
   },
