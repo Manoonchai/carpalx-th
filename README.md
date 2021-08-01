@@ -56,8 +56,8 @@ yarn optimize [layout_name] [output_file.txt]
   - [x] Drag & drop keys to swap
   - [x] Calculate effort from custom text input
 - [ ] Adjustable parameters (eg. Dominant hand, pinky penalty weight, etc.)
-- [ ] Ortholinear-layout support (eg. Planck, Ergodox)
-- [ ] Generate usable keyboard layout (Use tool like [klfc](https://github.com/39aldo39/klfc))
+- [x] Ortholinear-layout support (eg. Planck, Ergodox)
+- [x] Generate usable keyboard layout (Use tool like [klfc](https://github.com/39aldo39/klfc))
 
 ## Triads Datasets
 
