@@ -37,7 +37,7 @@ yarn optimize [layout_name] [output_file.txt]
 │    3    │ 'manoonchai_v01'  │ 'thai5k : ~3.61, wisesight : ~3.67, wongnai : ~3.14, thaisumTestset : ~3.31, thaisum : ~3.29, sugreeTweets : ~3.47, thaiTweets : ~3.46' │  23.9388401546314  │ '31.82%' │
 │    4    │ 'manoonchai_v02'  │ 'thai5k : ~3.11, wisesight : ~3.41, wongnai : ~2.83, thaisumTestset : ~3.00, thaisum : ~2.98, sugreeTweets : ~3.24, thaiTweets : ~3.24' │ 21.800355169321442 │ '44.75%' │
 │    5    │ 'manoonchai_v02b' │ 'thai5k : ~3.16, wisesight : ~3.45, wongnai : ~2.86, thaisumTestset : ~3.04, thaisum : ~3.02, sugreeTweets : ~3.29, thaiTweets : ~3.28' │ 22.102722562406974 │ '42.77%' │
-│    6    │ 'manoonchai_v1'  │ 'thai5k : ~3.14, wisesight : ~3.44, wongnai : ~2.87, thaisumTestset : ~3.05, thaisum : ~3.02, sugreeTweets : ~3.26, thaiTweets : ~3.28' │ 22.066642355747785 │ '43.00%' │
+│    6    │ 'manoonchai_v1'   │ 'thai5k : ~3.14, wisesight : ~3.44, wongnai : ~2.87, thaisumTestset : ~3.05, thaisum : ~3.02, sugreeTweets : ~3.26, thaiTweets : ~3.28' │ 22.066642355747785 │ '43.00%' │
 └─────────┴───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┴────────────────────┴──────────┘
 ```
 
