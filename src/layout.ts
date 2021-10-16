@@ -8,7 +8,7 @@ export interface LayoutOptions {
     | "manoonchai_v01"
     | "manoonchai_v02"
     | "manoonchai_v02b"
-    | "manoonchai_v03"
+    | "manoonchai_v1"
   lockedKeys?: boolean[][]
 }
 
@@ -100,7 +100,7 @@ export const LAYOUTS: ILayoutMatrix = {
     ["ณ", "ถ", "แ", "พ", "ผ", "ึ", "ุ", "ใ", "โ", "ศ", '"'],
     ["ฤ", "ฏ", "๋", "ซ", "๊", "ๆ", "์", "ธ", "ฮ", "?"],
   ],
-  manoonchai_v03: [
+  manoonchai_v1: [
     ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="],
     ["ใ", "ต", "ห", "ล", "ส", "ป", "ั", "ก", "ิ", "บ", "็", "ฬ", "ฯ"],
     ["ง", "เ", "ร", "น", "ม", "อ", "า", "่", "้", "ว", "ื"],
