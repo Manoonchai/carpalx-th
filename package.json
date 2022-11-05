@@ -6,7 +6,6 @@
   "author": "Manassarn Manoonchai <manassarn@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "web": "yarn --cwd web run dev",
     "build": "tsc",
     "test": "jest",
     "start": "ts-node src/main",
