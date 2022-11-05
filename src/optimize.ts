@@ -84,6 +84,12 @@ let minSumEffort = baselineEffort * percentRatio // Should be 100
 console.log("Optimizing")
 
 while (true) {
+  console.clear()
+  // const lines = process.stdout.getWindowSize()[1];
+  // for(let i = 0; i < lines; i++) {
+  //     console.log('\r\n');
+  // }
+
   console.log("PASS", pass)
   let currentThai5kEffort = 0,
     currentWisesightEffort = 0,
