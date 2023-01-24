@@ -1,5 +1,13 @@
 import { Layout } from "./layout"
 
+import tnc5k from "../data/thai5k-freq.json"
+import { wisesight } from "../data/wisesight"
+import { wongnai } from "../data/wongnai"
+import { thaiTweets } from "../data/thai-tweets"
+import { sugreeTweets } from "../data/sugree-tweets"
+// import thaisumTestset from "../data/thaisum-testset.json"
+import thaisum from "../data/thaisum-full.json"
+
 // Default model params
 const kb = 0.3555,
   kp = 0.6423,
@@ -41,6 +49,25 @@ export default class Carpalx {
 
   constructor(options: CarpalxOptions = { layout: new Layout() }) {
     this.layout = options.layout
+  }
+
+  private datasets = [
+    {name: "TNC 5000", corpus: tnc5k},
+    {name: "Wisesight Sentiment", corpus: wisesight},
+    {name: "Wongnai Corpus", corpus: wongnai},
+    {name: "Thaisum", corpus: thaisum},
+    {name: "ThaiTweets", corpus: thaiTweets},
+    {name: "SugreeTweets", corpus: sugreeTweets},
+  ]
+
+  public sumTypingEfforts(noisy: boolean=false): number {
+    const efforts = this.datasets.map(dataset => this.typingEffort(dataset.corpus as Triads))
+    if (noisy) {
+      this.datasets.map((dataset, i) => {
+        console.log(`Typing Effort (${dataset.name} triads) :`, efforts[i])
+      })
+    }
+    return(efforts.reduce((a, b) => a + b, 0))
   }
 
   // 𝐸=1𝑁∑𝑖𝑛𝑖𝑒𝑖
