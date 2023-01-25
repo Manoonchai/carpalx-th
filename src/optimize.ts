@@ -1,6 +1,6 @@
 import fs from "fs"
 
-import Carpalx, { Triads } from "./carpalx"
+import Carpalx from "./carpalx"
 import { ILayout, Layout, LayoutOptions } from "./layout"
 
 const layoutName = (process.argv[2] as LayoutOptions["name"]) || "kedmanee"
